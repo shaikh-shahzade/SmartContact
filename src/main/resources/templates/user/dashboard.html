@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+th:fragment="dashboard(contents)"
+th:replace="~{base:: base(~{::section})}"
+>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+
+</head>
+<body>
+<section >
+<script type="text/javascript">
+let extend =()=> {
+	$("#sideNav").css("width", "70%");
+    $("#expand").css("display","none" );
+    $("#expand").css("visibility","hidden" );
+}
+let collapse =()=> {
+	$("#sideNav").css("width", "0px");
+	$("#expand").css("display","block" );
+    $("#expand").css("visibility","visible" );
+    
+}
+</script>
+<div id="expand">
+	<button onclick="extend()"><span class="material-symbols-outlined">
+expand_more
+</span></button>
+	</div>
+<div class="sideNav" id="sideNav">
+<div id="collapse">
+	<button onclick="collapse()"><span class="material-symbols-outlined">
+close
+</span></button>
+	</div>
+	
+    <div class="tab">
+    
+        <a th:href="@{/home}" >
+        <span class="nav-icon material-symbols-outlined">
+home
+</span> Home</a>
+    </div>
+    
+    <div class="tab">
+        <a th:classappend="${ContactPage}" th:href="@{/user/dashboard/contacts}" > 
+        <span class="nav-icon material-symbols-outlined">
+contacts
+</span>
+        View contacts</a>
+    
+    </div>
+     <div class="tab">
+        <a th:classappend="${AddContactPage}" th:href="@{/user/dashboard/addcontacts}" >
+        <span class=" nav-icon material-symbols-outlined">
+person_add
+</span>
+         Add contacts</a>
+   
+    </div>
+    <div class="tab">
+    
+        <a th:classappend="${myProfilePage}" th:href="@{/user/dashboard/myprofile}" >
+        
+        <span class=" nav-icon material-symbols-outlined">
+person
+</span> View Profile</a>
+    
+    </div>
+    
+    <div class="tab">
+        <a  th:classappend="${updateMyprofile}" th:href="@{/user/dashboard/update/myprofile}" > 
+        <span class=" nav-icon material-symbols-outlined">
+manage_accounts
+</span>
+        Update Profile</a>
+    </div>
+    
+    <div class="tab">
+        <a th:href="@{/logout}" >
+        <span class="nav-icon material-symbols-outlined">
+logout
+</span>
+ Logout</a>
+    </div>
+</div>
+
+
+<section
+ th:replace="${contents}"></section>
+
+</section>
+
+
+</body>
+</html>

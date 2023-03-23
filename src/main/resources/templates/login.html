@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace = "~{base::base(~{::section})}" > 
+<head>
+<meta charset="ISO-8859-1">
+
+<title>Insert title here</title>
+</head>
+<body >
+<section>
+<div class= " homeBody container  d-flex flex-column align-items-center justify-content-center ">
+
+<div class=" row">
+<div class="col">
+<h1>Smart Contact Manager</h1>
+</div>
+</div>
+
+<div class=" row">
+<div class="col">
+<h1>LOGIN</h1>
+<div class="mb-3" th:if= " ${param.error}">
+<h2  >Invalid username and password.</h2>
+</div>
+<form th:action="@{/dologin}" th:object="${user}" th:method="#{POST}">
+
+
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Email address</label>
+    <input type="username" name="username" th:field="*{email}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+  </div>
+
+
+  <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">Password</label>
+    <input type="password" name="password" th:field="*{password}" class="form-control" id="exampleInputPassword1">
+  </div>
+
+
+  <div class="mb-3 form-check">
+    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+</div>
+</div>
+
+</div>
+</section>
+</body>
+</html>

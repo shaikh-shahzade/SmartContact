@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace = "~{base::base(~{::section})}" > 
+<head>
+<meta charset="ISO-8859-1">
+
+<title>Insert title here</title>
+</head>
+<body >
+<section>
+<div class= " homeBody container  d-flex flex-column align-items-center justify-content-center ">
+
+<div class=" row">
+<div class="col">
+<h1>Smart Contact Manager</h1>
+</div>
+
+</div>
+<div class=" row">
+<div class="col">
+<p>Start managing your contacts in smarter Way. Use Smart contact manager</p>
+</div>
+</div>
+
+<div class=" row">
+<div class="col" >
+
+<a th:href="@{/user/dashboard/contacts}" class="btn btn-primary" > Start</a>
+</div>
+</div>
+</div>
+</section>
+</body>
+</html>

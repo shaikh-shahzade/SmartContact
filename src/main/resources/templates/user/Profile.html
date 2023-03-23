@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+
+th:replace="~{user/dashboard:: dashboard(~{::div})}"
+>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+
+</head>
+<body>
+    <div class="dashboard-container" style="overflow: scroll;">
+    <div class="container">
+        
+        <div class="row">
+        <div class="  col-lg-3 col-sm-8  ">
+        
+        <img class="profile-pic" th:src="'/img/'+${contactProfile.image}">
+        
+        </div>
+        
+        <div class=" col-lg-8  col-sm-8 ">
+        
+        <h1 th:text="${contactProfile.name}">SHaikh SHahzade</h1>
+        
+        <h2 th:text="${contactProfile.work}">Role : Admin</h2>
+        
+        <div>
+        Email: 
+        <span th:text="${contactProfile.email}"> 
+        </span>email
+        </div>
+        <div>
+        About: <span th:text="${contactProfile.description}"> </span>
+        
+        </div>
+        
+        <div>
+        Number of Contacts: <span> </span> 
+        </div> 
+        
+        <div>
+        contacts on work Type
+        </div>
+        
+        </div>
+        </div>
+          
+          </div>
+    </div>
+</body>
+</html>

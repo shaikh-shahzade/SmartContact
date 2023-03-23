@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+
+th:replace="~{user/dashboard:: dashboard(~{::div})}"
+>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+
+</head>
+<body>
+    <div class="dashboard-container" style="overflow: scroll;">
+    <script type="text/javascript">
+    	let fetchUsers = () => {
+        
+        let searchText = $("#searchBox").val();
+    	}
+    </script>
+    <div class="container">
+    
+    <div class="mb-3">
+  <label for="exampleFormControlInput1" class="form-label">Search Contacts</label>
+  <input  oninput="fetchUsers()" id="searchBox" type="text" class="form-control" placeholder="Start search..">
+</div>
+    
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Email</th>
+                <th scope="col">Nick-name</th>
+                <th scope="col">Work</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+            
+            
+              <tr th:each="contacts: ${Contacts}">
+                <th scope="row" ><span th:text="'US'+${contacts.cId}"></span></th>
+                <td>
+                <a th:href="'/user/dashboard/profile/'+${contacts.cId}">
+                <img class="contact-pic" th:src="'/img/'+${contacts.image}" /> 
+                <span th:text="${contacts.name}"></span>
+                </a>
+                </td>
+                <td><span th:text="${contacts.phone}" ></span></td>
+                <td><span th:text="${contacts.email}"></span></td>
+                <td><span th:text="${contacts.nickName}"></span></td>
+                <td><span th:text="${contacts.work}"></span></td>
+                <td>DELETE | UPDTAE</td>
+              </tr>
+              
+            </tbody>
+          </table>
+          
+          <nav aria-label="...">
+  <ul class="pagination">
+    <li th:classappend="${currentPage==0?'disabled':''}" class="page-item ">
+      <a class="page-link" th:href="${'/user/dashboard/contacts?page='+(currentPage-1)}">Previous</a>
+    </li>
+    
+    <li th:each="i : ${#numbers.sequence( 0 ,pageSize-1,1)}" th:classappend="${currentPage==i?'active':''}" class="page-item " aria-current="page">
+      <a class="page-link"  th:text="${i+1}" th:href="${'/user/dashboard/contacts?page='+i}"></a>
+    </li>
+    
+    
+    <li class="page-item">
+      <a class="page-link" th:classappend="${currentPage==pageSize-1?'disabled':''}" th:href="${'/user/dashboard/contacts?page='+(currentPage+1)}">Next</a>
+    </li>
+  </ul>
+</nav>
+          </div>
+    </div>
+</body>
+</html>
