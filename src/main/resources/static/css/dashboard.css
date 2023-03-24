@@ -136,3 +136,8 @@ body , html
 	object-fit: cover;
   object-position: center right;
 }
+
+.dropdown-menu
+{
+	min-width: 70%;
+}

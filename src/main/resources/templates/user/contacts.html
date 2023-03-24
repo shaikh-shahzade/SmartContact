@@ -13,14 +13,54 @@ th:replace="~{user/dashboard:: dashboard(~{::div})}"
     <script type="text/javascript">
     	let fetchUsers = () => {
         
-        let searchText = $("#searchBox").val();
+    		let searchText = $("#searchBox").val();
+    		if(searchText.length<=3)
+            {
+              $("#search-dropdown").removeClass("show");
+                    	 
+              return;
+            }
+    		
+    		let resultArea= $("#search-dropdown");
+       	 	resultArea.addClass("show");
+        fetch("/contacts/search?searchText="+searchText)
+                    .then( (r)=>r.json().then(
+                      res=>
+                      {
+                    	 
+                       let col = "";
+                    	 res.forEach(element => {
+                          col += "<li><a class=\"dropdown-item\" href=\"#\">Action</a></li>"
+                          ;
+   
+                       });
+                        
+                    	 
+                    	  
+                      }
+                    ))
+
+    		
     	}
     </script>
     <div class="container">
     
     <div class="mb-3">
   <label for="exampleFormControlInput1" class="form-label">Search Contacts</label>
-  <input  oninput="fetchUsers()" id="searchBox" type="text" class="form-control" placeholder="Start search..">
+  
+  <input  oninput="fetchUsers()" id="searchBox" type="text" 
+  class="form-control" placeholder="Start search..">
+  
+  <ul class="dropdown-menu dropdown-menu " id="search-dropdown">
+    <li><a class="dropdown-item" href="#">Action</a></li>
+    <li><a class="dropdown-item" href="#">Another action</a></li>
+    <li><a class="dropdown-item" href="#">Something else here</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><a class="dropdown-item" href="#">Separated link</a></li>
+  </ul>
+    
+  
+  
 </div>
     
         <table class="table">
