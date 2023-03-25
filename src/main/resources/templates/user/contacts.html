@@ -14,13 +14,13 @@ th:replace="~{user/dashboard:: dashboard(~{::div})}"
     	let fetchUsers = () => {
         
     		let searchText = $("#searchBox").val();
-    		if(searchText.length<=3)
+    		if(searchText.length<=2)
             {
-              $("#search-dropdown").removeClass("show");
+             $("#search-dropdown").removeClass("show");
                     	 
               return;
             }
-    		
+    		let searchresult = $("#search-result");
     		let resultArea= $("#search-dropdown");
        	 	resultArea.addClass("show");
         fetch("/contacts/search?searchText="+searchText)
@@ -29,13 +29,28 @@ th:replace="~{user/dashboard:: dashboard(~{::div})}"
                       {
                     	 
                        let col = "";
-                    	 res.forEach(element => {
-                          col += "<li><a class=\"dropdown-item\" href=\"#\">Action</a></li>"
-                          ;
+                    	 res.forEach(contacts => {
+                    		 console.log(contacts.cId);
+                          col = col.concat( 
+                        	"<tr >"+
+                          "<th scope=\"row\" ><span > US"+contacts.cId+"</span></th>"+
+                          "<td>"+
+                          "<a href=\"/user/dashboard/profile/"+contacts.cId+"\">"+
+                          "<img class=\"contact-pic\" src=\"/img/"+contacts.image+"\" /> "+
+                          "<span >"+contacts.name+"</span>"+
+                          "</a>"+
+                          "</td>"+
+                          "<td><span> "+contacts.phone+"</span></td>"+
+                          "<td><span> "+contacts.email+"</span></td>"+
+                          "<td><span> "+contacts.nickName+"</span></td>"+
+                          "<td><span> "+contacts.work+"</span></td>"+
+                          "<td>DELETE | UPDTAE</td>"+
+                        "</tr>")
+                        	  ;
    
                        });
-                        
-                    	 
+                        searchresult.html(col);
+                       
                     	  
                       }
                     ))
@@ -48,19 +63,30 @@ th:replace="~{user/dashboard:: dashboard(~{::div})}"
     <div class="mb-3">
   <label for="exampleFormControlInput1" class="form-label">Search Contacts</label>
   
-  <input  oninput="fetchUsers()" id="searchBox" type="text" 
-  class="form-control" placeholder="Start search..">
+  <input  oninput="fetchUsers()" onclick="fetchUsers()" id="searchBox" type="text" 
+  class="form-control dropdown-toggle" data-bs-toggle="dropdown" placeholder="Start search..">
   
-  <ul class="dropdown-menu dropdown-menu " id="search-dropdown">
-    <li><a class="dropdown-item" href="#">Action</a></li>
-    <li><a class="dropdown-item" href="#">Another action</a></li>
-    <li><a class="dropdown-item" href="#">Something else here</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><a class="dropdown-item" href="#">Separated link</a></li>
-  </ul>
-    
-  
-  
+   <div class = "dropdown-menu" id="search-dropdown">
+  <table class="table ">
+            <!-- <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Email</th>
+                <th scope="col">Nick-name</th>
+                <th scope="col">Work</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead> -->
+            <tbody  id="search-result">
+            
+            
+              
+              
+            </tbody>
+          </table>
+  </div>
 </div>
     
         <table class="table">

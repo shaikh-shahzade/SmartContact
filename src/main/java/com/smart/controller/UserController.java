@@ -115,7 +115,7 @@ public class UserController {
 		
 		addUser(model,principal);
 		model.addAttribute("AddContactPage", "activeNav");
-		
+		model.addAttribute("currentPage",0);
 		try {
 			if(mfile.isEmpty())
 			contact.setImage("prof-pic.png");
@@ -138,8 +138,7 @@ public class UserController {
 			e.printStackTrace();
 		}
 		
-		
-		return "user/contacts";
+		return "redirect:/user/dashboard/contacts";
 	}
 	
 	
