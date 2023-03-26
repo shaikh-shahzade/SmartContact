@@ -13,47 +13,47 @@ th:replace="~{user/dashboard:: dashboard(~{::div})}"
 		<div class="container">
 			<div >
 			<div class="col mx-5 py-5"  >
-				<form  th:action="@{/user/dashboard/addcontacts}" th:method="POST"
+				<form  th:action="'/user/dashboard/contact/update?id='+${contactC.cId}" th:method="POST"
 					th:object="${contact}"
 					enctype="multipart/form-data"
 					>
 
 					<div class="mb-3">
 						<label for="exampleFormControlInput1" class="form-label">Phone</label>
-						<input type="text" th:name="@{phone}" class="form-control"
+						<input type="text" th:value="${contactC.phone}" th:name="@{phone}" class="form-control"
 							id="exampleFormControlInput1">
 					</div>
 					<div class="mb-3">
 						<label for="exampleFormControlInput1" class="form-label">Name</label>
-						<input type="text" th:name="@{name}" class="form-control"
+						<input type="text" th:value="${contactC.name}" th:name="@{name}" class="form-control"
 							id="exampleFormControlInput1">
 							
 					</div>
 					<div class="mb-3">
 						<label for="exampleFormControlInput1" class="form-label">Nick-name</label>
-						<input type="text" th:name="@{nickName}" class="form-control"
+						<input type="text" th:value="${contactC.nickName}" th:name="@{nickName}" class="form-control"
 							id="exampleFormControlInput1">
 					</div>
 					<div class="mb-3">
 						<label for="exampleFormControlInput1" class="form-label">Email</label>
-						<input type="text" th:name="@{email}" class="form-control"
+						<input type="text" th:value="${contactC.email}" th:name="@{email}" class="form-control"
 							id="exampleFormControlInput1">
 					</div>
 					
 					<div class="mb-3">
 						<label for="exampleFormControlInput1" class="form-label">Work</label>
-						<input type="text" th:name="@{work}" class="form-control"
+						<input type="text"  th:value="${contactC.work}" th:name="@{work}" class="form-control"
 							id="exampleFormControlInput1">
 					</div>
 
 					<div class="mb-3">
 						<label for="formFile" class="form-label">Image</label> <input
-							class="form-control" type="file" name="img" id="formFile">
+							class="form-control"    type="file" name="img" id="formFile">
 					</div>
 
 					<div class="mb-3">
 						<label for="exampleFormControlTextarea1" class="form-label">Description</label>
-						<textarea class="form-control" name= "description" id="exampleFormControlTextarea1"
+						<textarea class="form-control" th:text="${contactC.description}" name= "description" id="exampleFormControlTextarea1"
 							rows="3"></textarea>
 					</div>
 					<div class="mx-auto w-25">

@@ -122,7 +122,7 @@ public class UserController {
 			else
 			{
 			File saveFile = new ClassPathResource("/static/img").getFile();
-			Path path = Paths.get(saveFile.getAbsolutePath() + File.separator +contact.getcId()+mfile.getOriginalFilename());
+			Path path = Paths.get(saveFile.getAbsolutePath() + File.separator +mfile.getOriginalFilename());
 			Files.copy(mfile.getInputStream(),  path ,StandardCopyOption.REPLACE_EXISTING);
 			contact.setImage(contact.getcId()+mfile.getOriginalFilename());
 			}
@@ -169,6 +169,59 @@ public class UserController {
 		return "user/updateProfile";
 	}
 	
+	@RequestMapping("/dashboard/contact/update")
+	public String updateContact(@RequestParam("id") Integer id  , Model model , Principal principal) {
+		addUser(model,principal);
+		model.addAttribute("updateMyprofile", "activeNav");
+		Contact contact = contactRepo.getContactById(id);
+		model.addAttribute("contactC",contact);
+		return "user/updateContact";
+	}
 	
 	
+	@RequestMapping(value = "/dashboard/contact/update" , method = RequestMethod.POST)
+	public String updateValueContact(
+			@ModelAttribute Contact contact , 
+			Model model , 
+			Principal principal ,
+			@RequestParam("img") MultipartFile mfile , 
+			@RequestParam("id")Integer id,
+			@RequestParam("description") String description
+			
+			) {
+		addUser(model,principal);
+		model.addAttribute("updateMyprofile", "activeNav");
+		
+		try {
+			if(mfile.isEmpty())
+			contact.setImage("prof-pic.png");
+			else
+			{
+			File saveFile = new ClassPathResource("/static/img").getFile();
+			Path path = Paths.get(saveFile.getAbsolutePath() + File.separator +mfile.getOriginalFilename());
+			Files.copy(mfile.getInputStream(),  path ,StandardCopyOption.REPLACE_EXISTING);
+			contact.setImage(contact.getcId()+mfile.getOriginalFilename());
+			}
+			
+			User currentUser = userRepo.getUserByUserName(principal.getName());
+			
+			Contact DBCon = contactRepo.getContactById(id);
+			
+			contact.setUser(currentUser);
+			DBCon.setDescription(description);
+			DBCon.setEmail(contact.getEmail());
+			DBCon.setName(contact.getName());
+			DBCon.setNickName(contact.getNickName());
+			DBCon.setPhone(contact.getPhone());
+			DBCon.setWork(contact.getWork());
+			contactRepo.save(DBCon);
+			model.addAttribute("contactC",DBCon);
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "user/updateContact";
+	}
 }

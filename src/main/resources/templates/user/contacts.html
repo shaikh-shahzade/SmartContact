@@ -44,19 +44,41 @@ th:replace="~{user/dashboard:: dashboard(~{::div})}"
                           "<td><span> "+contacts.email+"</span></td>"+
                           "<td><span> "+contacts.nickName+"</span></td>"+
                           "<td><span> "+contacts.work+"</span></td>"+
-                          "<td>DELETE | UPDTAE</td>"+
-                        "</tr>")
-                        	  ;
-   
-                       });
+                          "<td><button type=\"button\" onclick=\"deleteUser("+contacts.cId+")\""+
+                           " class=\"btn btn-danger\">Delete</button>"+
+				                  "<a href=\"/user/dashboard/contact/update?id="+contacts.cId+"\""+
+                          " class=\"btn btn-success\">Update</a>"+
+				                    "</td>"+
+                          "</tr>");
+   						});
                         searchresult.html(col);
-                       
-                    	  
-                      }
-                    ))
-
-    		
-    	}
+                      }))};
+    	
+		let deleteUser = (id)=>
+				{
+						console.log(id);
+						fetch("/delete/contact?id="+id).then(
+              (r)=> r.text().then( 
+                res => {
+                  
+                  
+                  if(res=="success")
+                  {
+                    alert("Successfully Deleted Contact");
+                    location.reload();
+                  }
+                  else{
+                    alert("Unable to Delete Contact");
+                  }	 	
+                }
+                
+              )
+            )
+						
+						
+				}
+    	
+    	
     </script>
     <div class="container">
     
@@ -104,8 +126,8 @@ th:replace="~{user/dashboard:: dashboard(~{::div})}"
             <tbody>
             
             
-              <tr th:each="contacts: ${Contacts}">
-                <th scope="row" ><span th:text="'US'+${contacts.cId}"></span></th>
+              <tr th:each="contacts: ${Contacts}" th:id="'US'+${contacts.cId}">
+                <th scope="row" ><span th:text="'US'+${contacts.cId}" ></span></th>
                 <td>
                 <a th:href="'/user/dashboard/profile/'+${contacts.cId}">
                 <img class="contact-pic" th:src="'/img/'+${contacts.image}" /> 
@@ -116,7 +138,10 @@ th:replace="~{user/dashboard:: dashboard(~{::div})}"
                 <td><span th:text="${contacts.email}"></span></td>
                 <td><span th:text="${contacts.nickName}"></span></td>
                 <td><span th:text="${contacts.work}"></span></td>
-                <td>DELETE | UPDTAE</td>
+                <td>
+                <button type="button" th:onclick="'deleteUser('+${contacts.cId}+')'" class="btn btn-danger">Delete</button>
+				<a th:href="'/user/dashboard/contact/update?id='+${contacts.cId}"  class="btn btn-success">Update</a>
+				</td> 
               </tr>
               
             </tbody>

@@ -8,6 +8,9 @@ import java.util.Properties;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -47,7 +50,74 @@ public class RestUtility {
 		return contactRepo.findTop5ByNameContainingAndUser(searchText , user);
 	}
 	
-	@GetMapping("/mail")
+	@GetMapping("/delete/contact")
+	public String deleteContact(@RequestParam("id")Integer id , Principal principal)
+	{
+		try {
+		User user = userRepo.getUserByUserName(principal.getName());
+		Contact contact = contactRepo.getContactById(id);
+		if( contact.getUser().equals(user))
+		{
+			
+				contactRepo.delete(contact);
+				return "success";
+			
+		}
+		}
+		catch(Exception e)
+		{
+			
+		}
+		return "Error";
+	}
+	
+	@GetMapping("/forgot/checkmail")
+	public String checkUserWithMail(@RequestHeader("mailID") String mailID)
+	{
+	
+		System.out.println("Called");
+		if(userRepo.getUserByUserName(mailID)!=null)
+		{
+			return "success";
+		}
+		return "No user Found with this Email";
+	}
+	
+	@GetMapping("/forgot/checkotp")
+	public String checkUserWithOTP(
+			@RequestHeader("mailID") String mailID,
+			@RequestHeader("otp") String otp)
+	{
+	
+		
+		if(userRepo.getUserByUserName(mailID)!=null)
+		{
+			if(otp.equals("123")) {
+
+				return "success";
+			}
+			
+		}
+		return "No user Found with this Email";
+	}
+	
+	@PostMapping("/forgot/changepassword")
+	public String checkandUpdatePassword(
+			@RequestParam("mailID") String mailID,
+			@RequestParam("otp") String otp,
+			@RequestParam("password") String password)
+	{
+	
+		System.out.println( " chenge"+ mailID + " " + otp + " " + password);
+		System.out.println("Called");
+		if(userRepo.getUserByUserName(mailID)!=null)
+		{
+			return "success";
+		}
+		return "No user Found with this Email";
+	}
+	
+	@GetMapping("/forgot/mail")
 	public String sendMail()
 	{
 		//These are for learning purpose only. Due to privacy not showing these.

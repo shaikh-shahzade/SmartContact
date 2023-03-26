@@ -21,4 +21,6 @@ public interface ContactRepo extends JpaRepository<Contact, Integer>{
 	public Page<Contact> getContactsByUser(@Param("userC") User userID , Pageable pageable);
 	
 	public List<Contact> findTop5ByNameContainingAndUser(String name , User user);
+
+	public void deleteBycIdAndUser(Integer cId , User user);
 }

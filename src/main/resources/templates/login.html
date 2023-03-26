@@ -8,6 +8,9 @@
 </head>
 <body >
 <section>
+
+
+
 <div class= " homeBody container  d-flex flex-column align-items-center justify-content-center ">
 
 <div class=" row">
@@ -45,10 +48,183 @@
 
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+<button type="button" style="background-color: transparent; border:none;" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+ Forgot Password?
+</button>
 </div>
+
+ 
+<!-- Modal -->
+<div class="modal fade "  data-bs-backdrop="static" data-bs-keyboard="false"  style="color: black" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    
+    
+    <div class="modal-content"  id="mail-content">
+     <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Forgot password</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body mx-auto" id="modal-show-area" >
+       
+       <label for="emailReset" class="form-label">Enter Email address</label>
+        <input type="email" class="form-control" id="emailReset" placeholder="name@example.com">
+     </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" onclick="sendMail()"  class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+
+    <div class="modal-content disable-hidden-mode"  id="otp-content">
+      <div class="modal-header">
+         <h1 class="modal-title fs-5" id="exampleModalLabel">Forgot password</h1>
+         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+       </div>
+       <div class="modal-body mx-auto" id="modal-show-area" >
+       <label for="emailReset" class="form-label">Enter OTP send to your mail</label>
+        <input type="email" class="form-control" id="email-reset-otp" placeholder="name@example.com">
+      </div>
+       <div class="modal-footer">
+         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+         <button type="button" onclick="sendOTP()"  class="btn btn-primary">Save changes</button>
+       </div>
+     </div>
+
+     <div class="modal-content disable-hidden-mode " id="password-content">
+      <div class="modal-header">
+         <h1 class="modal-title fs-5" id="exampleModalLabel">Forgot password</h1>
+         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+       </div>
+       <div class="modal-body mx-auto" id="modal-show-area" >
+       <label for="emailReset" class="form-label">Enter Password</label>
+         <input type="email" class="form-control" id="NewPassword" placeholder="name@example.com">
+         <label for="emailReset" class="form-label">Confirm Password</label>
+         <input type="email" class="form-control" id="ConfirmPassword" placeholder="name@example.com">
+      </div>
+       <div class="modal-footer">
+         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+         <button type="button" onclick="sendPassword()"  class="btn btn-primary">Save changes</button>
+       </div>
+     </div>
+
+     <div class="modal-content disable-hidden-mode" id="success-content">
+      <div class="modal-header">
+         <h1 class="modal-title fs-5" id="exampleModalLabel">Forgot password</h1>
+         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+       </div>
+       <div class="modal-body mx-auto" id="modal-show-area" >
+       <label for="emailReset" class="form-label">Password changed succesfully</label>
+         </div>
+       <div class="modal-footer">
+         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+       </div>
+     </div>
+  </div>
+</div>
+
+
 </div>
 
 </div>
+
+<script>
+  let cls = "disable-hidden-mode";
+  
+let sendMail = ()=>
+{
+  let mailID = $("#emailReset").val();
+  
+  fetch("/forgot/checkmail",{
+  method: "GET", // or 'PUT'
+  headers: {
+    "mailID":mailID 
+  } })
+  .then(
+    (r)=>{r.text().then((result) =>{
+
+      if(result=="success")
+      {
+        
+        $("#mail-content").toggleClass(cls);
+        $("#otp-content").toggleClass(cls);
+      }
+     
+    })
+    }
+  )
+
+
+}
+
+let sendOTP = ()=>
+{
+	let mailID = $("#emailReset").val();
+	let otp = $("#email-reset-otp").val();
+	
+	console.log(mailID + "  " + otp);
+	
+	  fetch("/forgot/checkotp",{
+	  method: "GET", // or 'PUT'
+	  headers: {
+	    "mailID":mailID,
+	    "otp":otp
+	  } })
+	  .then(
+	    (r)=>{r.text().then((result) =>{
+
+	      console.log("RESULT"+result);
+	      if(result=="success")
+	      {
+	        
+	        $("#password-content").toggleClass(cls);
+	        $("#otp-content").toggleClass(cls);
+	      }
+	      
+
+	    })
+	    }
+	  )
+}
+
+let sendPassword = ()=>
+{
+	let mailID = $("#emailReset").val();
+	let otp = $("#email-reset-otp").val();
+	let pass = $("#NewPassword").val();
+	let passConfirm = $("#ConfirmPassword").val();
+	
+
+  let formD =new FormData();
+  formD.append("mailID",mailID);
+  formD.append("otp",otp);
+  formD.append("password",pass);
+	console.log(mailID + "  " + otp);
+	
+	  fetch("/forgot/changepassword",{
+	  method: "POST",
+	  body: formD
+    
+  })
+	  .then(
+	    (r)=>{r.text().then((result) =>{
+			if(result=="success")
+	      {
+	    	  $("#success-content").toggleClass(cls);
+	    	  $("#password-content").toggleClass(cls);
+	    		
+          	window.setTimeout(()=>location.reload(),3000);
+	    	  
+	      }
+	      
+
+	    })
+	    }
+	  )
+
+}
+  
+</script>
+
 </section>
 </body>
 </html>
