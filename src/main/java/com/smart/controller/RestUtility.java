@@ -5,8 +5,11 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,8 +22,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.smart.entities.Contact;
 import com.smart.entities.User;
+import com.smart.entities.UserOTP;
 import com.smart.repo.ContactRepo;
+import com.smart.repo.OtpRepo;
 import com.smart.repo.UserRepository;
+import com.smart.user.config.SecurityConfigruation;
 
 import jakarta.mail.Authenticator;
 import jakarta.mail.MessagingException;
@@ -41,7 +47,10 @@ public class RestUtility {
 	
 	@Autowired
 	UserRepository userRepo;
+	@Autowired
+	OtpRepo otpRepo;
 	
+
 	@GetMapping("/contacts/search")
 	public List<Contact> search(@RequestParam("searchText") String searchText 
 			, Principal principal)
@@ -78,7 +87,31 @@ public class RestUtility {
 		System.out.println("Called");
 		if(userRepo.getUserByUserName(mailID)!=null)
 		{
-			return "success";
+			try
+			{Integer otp = new Random().nextInt(11111, 99999);
+			
+			UserOTP userOtp = otpRepo.findByUserId(mailID);
+			
+			if(userOtp!=null)
+			{
+				userOtp.setOtp(otp);
+				
+			}
+			else
+			{
+				userOtp = new UserOTP();
+				userOtp.setOtp(otp);
+				userOtp.setUserId(mailID);
+			}
+			otpRepo.save(userOtp);
+			String message = "Hello your OTP to reset your password is " +otp;
+			if(sendTextMail(mailID, "Password Reset", message))
+				return "success";
+			}
+			catch(Exception e)
+			{
+				
+			}
 		}
 		return "No user Found with this Email";
 	}
@@ -88,11 +121,10 @@ public class RestUtility {
 			@RequestHeader("mailID") String mailID,
 			@RequestHeader("otp") String otp)
 	{
-	
-		
 		if(userRepo.getUserByUserName(mailID)!=null)
 		{
-			if(otp.equals("123")) {
+			UserOTP userOtp = otpRepo.findByUserId(mailID);
+			if(otp.equals(""+userOtp.getOtp())) {
 
 				return "success";
 			}
@@ -108,11 +140,18 @@ public class RestUtility {
 			@RequestParam("password") String password)
 	{
 	
-		System.out.println( " chenge"+ mailID + " " + otp + " " + password);
-		System.out.println("Called");
-		if(userRepo.getUserByUserName(mailID)!=null)
+		if(checkUserWithOTP(mailID,otp).equals("success"))
 		{
-			return "success";
+			try {
+				User user = userRepo.getUserByUserName(mailID);
+				user.setPassword( new BCryptPasswordEncoder().encode(password));
+				userRepo.save(user);
+				return "success";
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			
+			
 		}
 		return "No user Found with this Email";
 	}
@@ -126,7 +165,7 @@ public class RestUtility {
 		return "done";
 	}
 
-	private void sendTextMail() {
+	private boolean sendTextMail( String sendMailTo , String subject , String msg  ) {
 		String host = "smtp.gmail.com";
 
 		Properties properties = System.getProperties();
@@ -148,17 +187,21 @@ public class RestUtility {
 		MimeMessage message = new MimeMessage(session);
 		try {
 			message.setFrom(new InternetAddress("myMail@gmail.com"));
-			message.addRecipient(RecipientType.TO, new InternetAddress("sentTOMail@gmail.com"));
-			message.setSubject("TEST");
-			message.setText("This is mail send demo");
+			message.addRecipient(RecipientType.TO, new InternetAddress(sendMailTo));
+			message.setSubject(subject);
+			message.setText(msg);
 			
 			
 			Transport.send(message);
+			return true;
 			
 		} catch (MessagingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			
 		}
+		
+		return false;
 	}
 	
 
