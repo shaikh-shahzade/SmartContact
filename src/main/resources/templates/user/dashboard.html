@@ -12,6 +12,8 @@ th:replace="~{base:: base(~{::section})}"
 <section >
 <script type="text/javascript">
 let extend =()=> {
+
+	$("#sideNav").css("display", "block");
 	$("#sideNav").css("width", "70%");
     $("#expand").css("display","none" );
     $("#expand").css("visibility","hidden" );
@@ -20,14 +22,17 @@ let collapse =()=> {
 	$("#sideNav").css("width", "0px");
 	$("#expand").css("display","block" );
     $("#expand").css("visibility","visible" );
+    $("#sideNav").css("display", "none");
     
 }
 </script>
+<div   style="background: none;z-index: 10; height: 0px;">
 <div id="expand">
 	<button onclick="extend()"><span class="material-symbols-outlined">
 expand_more
 </span></button>
 	</div>
+</div>
 <div class="sideNav" id="sideNav">
 <div id="collapse">
 	<button onclick="collapse()"><span class="material-symbols-outlined">

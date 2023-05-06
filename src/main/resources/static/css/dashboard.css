@@ -75,9 +75,19 @@ body , html
 
 
 @media screen and (max-width: 800px) {
+  
+  
+.dashboard-container
+{
+	background: white;
+	margin:auto;
+	height: 100vh;
+	padding-bottom:60px;
+	
+}
   .sideNav {
     width: 0%;
-    
+    display:none;
     overflow:hidden;
 	background-color: white;
 	align-content: center;
