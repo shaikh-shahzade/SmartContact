@@ -22,7 +22,7 @@ public class SecurityConfigruation{
         return new BCryptPasswordEncoder();
     }
 
-	
+
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception
 	{
@@ -36,16 +36,16 @@ public class SecurityConfigruation{
 		.formLogin()
 		.loginPage("/login")
 		.permitAll()
-		
+
 		.loginProcessingUrl("/dologin")
 		.permitAll()
-		
+
 		.defaultSuccessUrl("/home")
 		.permitAll()
-		
+
 		;
-		 
+
 		return httpSecurity.build();
-		 
+
 	}
 }

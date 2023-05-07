@@ -7,13 +7,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.smart.entities.User;
 import com.smart.helper.Message;
@@ -30,23 +27,23 @@ public class HomeController {
 
 	@RequestMapping("/home")
 	public String home(Model model , Principal principal) {
-		
-		
+
+
 		if(principal!=null)
 		{
-			
+
 			try {
 				User user = userRepo.getUserByUserName(principal.getName());
 				model.addAttribute("username", user.getName());
 				model.addAttribute("login",true);
 			} catch (Exception e) {
-				
+
 			}
-			
+
 		}
 		else
 			model.addAttribute("login",false);
-		
+
 		return "home";
 	}
 
@@ -60,7 +57,7 @@ public class HomeController {
 		model.addAttribute("user", new User());
 		return "signup";
 	}
- 
+
 	@RequestMapping(value = "/doRegister", method = RequestMethod.POST)
 	public String register(@Valid @ModelAttribute("user") User user, BindingResult result,
 			@RequestParam(value = "agreement", defaultValue = "false") boolean agreement,
@@ -76,7 +73,7 @@ public class HomeController {
 			user.setAbout(desc);
 			user.setImage("default.png");
 			user.setRole("user");
-			
+
 			user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
 			try {
 				User res = userRepo.save(user);

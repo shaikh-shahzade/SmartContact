@@ -25,11 +25,11 @@ public class Contact {
 	private String image;
 	private String email;
 	private String work;
-	
+
 	@JsonIgnore
 	@ManyToOne
 	private User user;
-	
+
 	public User getUser() {
 		return user;
 	}
@@ -84,7 +84,7 @@ public class Contact {
 	public void setWork(String work) {
 		this.work = work;
 	}
-	
-	
-	
+
+
+
 }

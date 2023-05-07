@@ -1,11 +1,7 @@
 package com.smart.entities;
 
-import java.util.List;
-
-import org.hibernate.validator.constraints.UniqueElements;
-import org.springframework.beans.factory.annotation.Value;
-
 import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -25,26 +21,26 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	
+
 	@NotBlank(message ="User name cannot be blank")
 	@Size(min = 2 , max = 100)
 	private String name;
-	
+
 	private String password;
 	private String image;
 	private String role;
-	
-	
-	
+
+
+
 	@Column(name= "email" , unique = true , nullable = false)
 	private String email;
 	@Column(length = 500)
 	private String about;
 	private boolean enabled;
-	
+
 	@OneToMany(cascade = CascadeType.ALL , fetch = FetchType.LAZY, mappedBy = "user")
-	private List<Contact> contacts = new ArrayList<Contact>();
-	
+	private List<Contact> contacts = new ArrayList<>();
+
 	public List<Contact> getContacts() {
 		return contacts;
 	}
@@ -104,8 +100,8 @@ public class User {
 		return "User [id=" + id + ", name=" + name + ", password=" + password + ", image=" + image + ", role=" + role
 				+ ", email=" + email + ", about=" + about + ", enabled=" + enabled + ", contacts=" + contacts + "]";
 	}
-	
-	
-	
-	
+
+
+
+
 }

@@ -1,6 +1,5 @@
 package com.smart.user.config;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -13,7 +12,7 @@ import com.smart.entities.User;
 public class CustomUserDetails implements UserDetails {
 
 	private User user;
-	
+
 	public CustomUserDetails(User user) {
 		super();
 		this.user = user;
@@ -21,21 +20,21 @@ public class CustomUserDetails implements UserDetails {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		
+
 		SimpleGrantedAuthority simpleAuthority = new SimpleGrantedAuthority(user.getRole());
-		
+
 		return List.of(simpleAuthority);
 	}
 
 	@Override
 	public String getPassword() {
-		
+
 		return user.getPassword();
 	}
 
 	@Override
 	public String getUsername() {
-		
+
 		return user.getEmail();
 	}
 
