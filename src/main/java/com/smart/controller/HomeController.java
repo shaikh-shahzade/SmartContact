@@ -24,11 +24,9 @@ public class HomeController {
 
 	@Autowired
 	private UserRepository userRepo;
-
-	@RequestMapping("/home")
-	public String home(Model model , Principal principal) {
-
-
+	
+	public void setAttributes(Model model , Principal principal)
+	{
 		if(principal!=null)
 		{
 
@@ -43,13 +41,17 @@ public class HomeController {
 		}
 		else
 			model.addAttribute("login",false);
+	}
 
+	@RequestMapping( value={"/home" , "/"})
+	public String home(Model model , Principal principal) {
+		setAttributes(model, principal);
 		return "home";
 	}
 
 	@RequestMapping("/about")
-	public String about(Model model) {
-		model.addAttribute("name", "Shaikh");
+	public String about(Model model,Principal principal) {
+		setAttributes(model, principal);
 		return "about";
 	}
 	@RequestMapping("/signup")
@@ -96,4 +98,6 @@ public class HomeController {
 		model.addAttribute("user", new User());
 		return "login";
 	}
+	
+	
 }
