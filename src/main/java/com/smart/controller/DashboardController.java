@@ -26,7 +26,7 @@ import com.smart.entities.User;
 import com.smart.repo.ContactRepo;
 import com.smart.repo.UserRepository;
 @Controller
-@RequestMapping("contact")
+@RequestMapping("dashboard")
 public class DashboardController {
 	
 	@Autowired
@@ -49,7 +49,7 @@ public class DashboardController {
 			}
 		}
 	}
-	@RequestMapping("/dashboard/contacts")
+	@RequestMapping("/contacts")
 	public String viewContacts(
 			Model model ,
 			Principal principal,
@@ -78,7 +78,7 @@ public class DashboardController {
 
 
 
-	@RequestMapping("/dashboard/addcontacts")
+	@RequestMapping("/addcontacts")
 	public String addContacts(Model model , Principal principal) {
 		addUser(model,principal);
 		model.addAttribute("AddContactPage", "activeNav");
@@ -86,7 +86,7 @@ public class DashboardController {
 		return "user/addContacts";
 	}
 
-	@PostMapping("/dashboard/addcontacts")
+	@PostMapping("/addcontacts")
 	public String addContact(
 			@ModelAttribute Contact contact ,
 			Model model ,
@@ -123,7 +123,7 @@ public class DashboardController {
 		return "redirect:/user/dashboard/contacts";
 	}
 
-	@RequestMapping("/dashboard/contact/update")
+	@RequestMapping("/contact/update")
 	public String updateContact(@RequestParam("id") Integer id  , Model model , Principal principal) {
 		addUser(model,principal);
 		model.addAttribute("updateMyprofile", "activeNav");
@@ -133,7 +133,7 @@ public class DashboardController {
 	}
 
 
-	@RequestMapping(value = "/dashboard/contact/update" , method = RequestMethod.POST)
+	@RequestMapping(value = "/contact/update" , method = RequestMethod.POST)
 	public String updateValueContact(
 			@ModelAttribute Contact contact ,
 			Model model ,
