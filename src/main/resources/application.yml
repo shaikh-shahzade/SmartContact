@@ -13,5 +13,8 @@ spring:
       max-file-size: 999999KB
         
       
-
-      
+server:
+  error:
+    whitelabel:
+      enabled: false
+    path: /error

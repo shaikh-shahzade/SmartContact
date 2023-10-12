@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace = "~{base::base(~{::section})}" > 
+<head>
+<meta charset="ISO-8859-1">
+
+<title>Error</title>
+</head>
+<body >
+<section>
+<div class= " homeBody container  d-flex flex-column align-items-center justify-content-center ">
+
+<div class=" row">
+<div class="col">
+    <h1>Something went wrong! </h1>
+</div>
+
+</div>
+<div class=" row">
+<div class="col">
+    <h2>
+     We're working on it. Try Again Later</h2>
+</div>
+</div>
+
+<div class=" row">
+<div class="col" >
+
+<a th:href="@{/home}" class="btn btn-primary" >Home</a>
+</div>
+</div>
+</div>
+</section>
+</body>
+</html>
