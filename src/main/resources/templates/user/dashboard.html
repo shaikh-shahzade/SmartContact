@@ -57,6 +57,14 @@ contacts
     
     </div>
      <div class="tab">
+        <a th:classappend="${AddContactPage}" th:href="@{/dashboard/mail}" >
+        <span class=" nav-icon material-symbols-outlined">
+mail
+</span>
+         Send Mail</a>
+   
+    </div>
+     <div class="tab">
         <a th:classappend="${AddContactPage}" th:href="@{/dashboard/addcontacts}" >
         <span class=" nav-icon material-symbols-outlined">
 person_add
