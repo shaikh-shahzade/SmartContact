@@ -93,7 +93,7 @@ public class DashBoardServiceImpl implements DashboardService {
 			e.printStackTrace();
 		}
 
-		return "redirect:/user/dashboard/contacts";
+		return "redirect:/dashboard/contacts";
 	}
 
 	@Override

@@ -66,16 +66,24 @@ public class HomeController {
 			@RequestParam(value = "desc") String desc, Model model, HttpSession session) {
 
 		if (agreement) {
+			
 
 			if (result.hasErrors()) {
 				model.addAttribute("user", user);
-				System.out.print("Error is here");
+				System.out.print("Error here");
 				return "signup";
 			}
+			
+			if(userRepo.existsByEmail(user.getEmail())) {
+				model.addAttribute("user", user);
+				session.setAttribute("message", new Message("Email already exists", "alert-danger"));
+				return "signup";
+			}
+			
 			user.setAbout(desc);
 			user.setImage("default.png");
 			user.setRole("user");
-
+			System.out.println("message");
 			user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
 			try {
 				User res = userRepo.save(user);
