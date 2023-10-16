@@ -96,4 +96,10 @@ public class DashboardController {
 		addUser(model,principal);
 		return dashboardService.updateValueContact(contact, model, principal, mfile, id, description);
 	}
+	
+	@RequestMapping("/mail")
+	public String mailPage(Model model , Principal principal) {
+		addUser(model,principal);
+		return dashboardService.mail(model, principal);
+	}
 }

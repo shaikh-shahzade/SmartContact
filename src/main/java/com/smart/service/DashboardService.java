@@ -37,4 +37,6 @@ public interface DashboardService {
 
 	public String updateValueContact(Contact contact, Model model, Principal principal, MultipartFile mfile, Integer id,
 			String description);
+
+	public String mail(Model model, Principal principal);
 }

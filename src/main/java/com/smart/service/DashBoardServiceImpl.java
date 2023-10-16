@@ -146,4 +146,11 @@ public class DashBoardServiceImpl implements DashboardService {
 		return "user/updateContact";
 	}
 
+	@Override
+	public String mail(Model model, Principal principal) {
+		// TODO Auto-generated method stub
+		model.addAttribute("mailPage", "activeNav");
+		return "user/mail";
+	}
+
 }
