@@ -23,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.smart.entities.Contact;
 import com.smart.entities.User;
+import com.smart.helper.Mail;
 import com.smart.repo.ContactRepo;
 import com.smart.repo.UserRepository;
 
@@ -150,6 +151,7 @@ public class DashBoardServiceImpl implements DashboardService {
 	public String mail(Model model, Principal principal) {
 		// TODO Auto-generated method stub
 		model.addAttribute("mailPage", "activeNav");
+		model.addAttribute("mail",new Mail());
 		return "user/mail";
 	}
 

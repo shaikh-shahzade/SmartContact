@@ -13,7 +13,37 @@ th:replace="~{user/dashboard:: dashboard(~{::div})}"
 		<div class="container">
 			<div >
 			<div class="col mx-5 py-5"  >
-				
+				<form  th:action="@{/dashboard/sendmail}" th:method="POST"
+					th:object="${mail}"
+					enctype="multipart/form-data"
+					>
+
+					<div class="mb-3">
+						<label for="exampleFormControlInput1" class="form-label">To</label>
+						<input type="text" th:name="@{to}" class="form-control"
+							id="exampleFormControlInput1">
+					</div>
+					<div class="mb-3">
+						<label for="exampleFormControlInput1" class="form-label">CC</label>
+						<input type="text" th:name="@{cc}" class="form-control"
+							id="exampleFormControlInput1">
+							
+					</div>
+					<div class="mb-3">
+						<label for="exampleFormControlInput1" class="form-label">Subject</label>
+						<input type="text" th:name="@{subject}" class="form-control"
+							id="exampleFormControlInput1">
+					</div>
+					
+					<div class="mb-3">
+						<label for="exampleFormControlTextarea1" class="form-label">Body</label>
+						<textarea class="form-control" name= "description" id="exampleFormControlTextarea1"
+							rows="3"></textarea>
+					</div>
+					<div class="mx-auto w-25">
+						<button type="submit" class="btn btn-primary  ">Submit</button>
+					</div>
+				</form>
 			</div>
 			</div>
 		</div>
