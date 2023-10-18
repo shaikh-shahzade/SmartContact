@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.smart.entities.Contact;
 import com.smart.entities.User;
+import com.smart.helper.Mail;
 
  
 public interface DashboardService {
@@ -39,4 +40,6 @@ public interface DashboardService {
 			String description);
 
 	public String mail(Model model, Principal principal);
+
+	public String mailPost(Model model, Principal principal, Mail mail, String mailBody);
 }

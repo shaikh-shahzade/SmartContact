@@ -155,4 +155,10 @@ public class DashBoardServiceImpl implements DashboardService {
 		return "user/mail";
 	}
 
+	@Override
+	public String mailPost(Model model, Principal principal, Mail mail, String mailBody) {
+		// TODO Auto-generated method stub
+		return "user/mail";
+	}
+
 }

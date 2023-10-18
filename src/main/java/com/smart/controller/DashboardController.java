@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -102,5 +103,10 @@ public class DashboardController {
 	public String mailPage(Model model , Principal principal) {
 		addUser(model,principal);
 		return dashboardService.mail(model, principal);
+	}
+	@PostMapping("/mail/post")
+	public String mailPost(Model model , Principal principal,@RequestBody Mail mail, @RequestParam(name = "body") String mailBody) {
+		addUser(model,principal);
+		return dashboardService.mailPost(model, principal , mail , mailBody);
 	}
 }
