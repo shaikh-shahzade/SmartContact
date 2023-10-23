@@ -34,6 +34,9 @@ public class DashBoardServiceImpl implements DashboardService {
 
 	@Autowired
 	private UserRepository userRepo;
+	
+	@Autowired
+	private MailingService mailingService;
 
 	@Override
 	public String viewContacts(Model model, Principal principal, int page) {
@@ -62,7 +65,6 @@ public class DashBoardServiceImpl implements DashboardService {
 	public String addContacts(Model model, Principal principal) {
 		// TODO Auto-generated method stub
 		model.addAttribute("AddContactPage", "activeNav");
-
 		return "user/addContacts";
 	}
 
@@ -158,6 +160,8 @@ public class DashBoardServiceImpl implements DashboardService {
 	@Override
 	public String mailPost(Model model, Principal principal, Mail mail, String mailBody) {
 		// TODO Auto-generated method stub
+		boolean success = mailingService.sendTextMail(mail.getTo(), mail.getSubject(), mail.getMessage());
+				
 		return "user/mail";
 	}
 
