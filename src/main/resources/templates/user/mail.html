@@ -23,13 +23,18 @@
                 function getContacts(value) {
                   if(value.length>1)
 				  {
+                	  fetch("/dashboard/mail/search/id?key="+value)
+					  .then((res)=>{
+						res.json().then((data)=>{
+							console.log(data);
+						});
+					  })
 				  }
                 }
               </script>
               <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label"
-                  >To</label
-                >
+                  >To:  <span>Placeholder for mailIds</span> </label>
                 <input
                   oninput="getContacts(value)"
                   type="text"

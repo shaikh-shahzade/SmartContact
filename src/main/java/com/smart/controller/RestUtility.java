@@ -160,6 +160,13 @@ public class RestUtility {
 		//sendAttachmentMail();
 		return "done";
 	}
+	@GetMapping("/dashboard/mail/search/id")
+	public List<Contact> contact(@RequestParam("key") String key ,Principal principal)
+	{
+		
+		User user = userRepo.getUserByUserName(principal.getName());
+		return contactRepo.findTop5ByNameContainingAndUser(key, user);
+	}
 
 	
 }
