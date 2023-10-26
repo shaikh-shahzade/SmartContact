@@ -9,6 +9,7 @@
 	<div class="dashboard-container" style="overflow: scroll">
 		<div class="container">
 			<div>
+			<script type="text/javascript" th:src="@{/js/mail.js}"></script>
 				<div class="col mx-5 py-5">
 					<form th:action="@{/dashboard/sendmail}" th:method="POST"
 						th:object="${mail}" enctype="multipart/form-data">
@@ -49,8 +50,9 @@
 								class="form-control " id="ToInputFile" />
 						</div>
 						
-						<div id="showMailsResults" style="display: none;" >
-						show results
+						<div id="showMailsResults" style="width:65%; border:0.05px #80808059 solid; margin-top:-12px; box-shadow:1px grey; display: none; background-color: white;" class="z-2 mx-5  position-absolute "  >
+						
+						
 						</div>
 						
 						<div class="mb-3">
@@ -76,7 +78,7 @@
 				</div>
 			</div>
 		</div>
-		<script type="text/javascript" src="/mail.js"></script>
+		
 	</div>
 </body>
 </html>

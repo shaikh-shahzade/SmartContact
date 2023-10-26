@@ -28,7 +28,7 @@ public class SecurityConfigruation{
 	{
 		httpSecurity.csrf().disable()
 		.authorizeHttpRequests()
-		.requestMatchers("/css/**","/img/**","/","/doRegister","/login","/about","/home","/signup" , "/forgot/**")
+		.requestMatchers("/css/**","/js/**","/img/**","/","/doRegister","/login","/about","/home","/signup" , "/forgot/**")
 		.permitAll()
 		.anyRequest()
 		.authenticated()
