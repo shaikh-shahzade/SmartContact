@@ -1,3 +1,10 @@
+var mails = []
+
+function addMail(id)
+{
+	mails.push(id)
+	console.log(mails)
+}
 function getContacts(value) {
     if(value.length>1)
     {
@@ -11,7 +18,7 @@ function getContacts(value) {
               data.forEach(d =>
                 htmVal+=
                 "<div>"+
-                "<button style=\"width:100%;border-radius:0px;\" type=\"button\" class=\"btn  btn-light\">"
+                "<button onCLick=\"addMail(id)\" id=\""+d.cId+"\" style=\"width:100%;border-radius:0px;\" type=\"button\" class=\"btn  btn-light\">"
                 +"<strong  >"+d.name+ "</strong>"
                 +"<small class=\"fw-lighter\" style=\"font-size:60%;\">"+ " ["+d.email+"]" +"</small>"
                 +"</button>"+
