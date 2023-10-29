@@ -2,9 +2,11 @@ var mails = []
 
 function addMail(id)
 {
+	
 	mails.push(id)
 	console.log(mails)
 }
+
 function getContacts(value) {
     if(value.length>1)
     {
@@ -15,7 +17,11 @@ function getContacts(value) {
               var mailRes =document.getElementById("showMailsResults");
               mailRes.style.display="block";
               htmVal="";
+              mailRes.innerHTML=htmVal;
               data.forEach(d =>
+                {
+                if(!mails.find(x=>x==d.cId))
+                {
                 htmVal+=
                 "<div>"+
                 "<button onCLick=\"addMail(id)\" id=\""+d.cId+"\" style=\"width:100%;border-radius:0px;\" type=\"button\" class=\"btn  btn-light\">"
@@ -24,9 +30,10 @@ function getContacts(value) {
                 +"</button>"+
                 "</div>"
                 
-                );
-						
-              mailRes.innerHTML=htmVal;
+                mailRes.innerHTML=htmVal;
+                }
+              });
+		
           });
         })
     }
