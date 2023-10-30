@@ -2,11 +2,38 @@ var mails = []
 
 function addMail(id)
 {
+	if(!mails.find(x=>x==id))
+	{
+		mails.push(id);
+	updateMails();
+	getContacts(0);
+	document.getElementById("SearchMailInput").value="";
+    
 	
-	mails.push(id)
+	}
 	console.log(mails)
 }
-
+function updateMails()
+{
+	var mailArea =document.getElementById("selectedMails");
+    let mailsFields = "";         
+	mails.forEach(
+		d=>{
+			mailsFields+= 
+			          "<div class=\" col-4 col-lg-2\">"
+								+"<div class=\" alert alert-success  alert-dismissible fade show\""
+								+"role=\"alert\">"
+								+"<strong style=\"font-size: x-small;\">Shaikh Shahzade</strong>"
+								+"<button type=\"button\" onClick=\"removeMail()\" class=\"btn-close\""
+								+ "data-bs-dismiss=\"alert\" aria-label=\"Close\"></button>"
+								+"</div>"
+								+"</div>"
+				
+		}
+	)
+	
+	mailArea.innerHTML=mailsFields;
+}
 function getContacts(value) {
     if(value.length>1)
     {
