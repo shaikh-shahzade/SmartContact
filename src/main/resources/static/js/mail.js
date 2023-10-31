@@ -1,14 +1,14 @@
 var mails = []
-
+var map = new Map();
 function addMail(id)
 {
 	if(!mails.find(x=>x==id))
 	{
 		mails.push(id);
-	updateMails();
-	getContacts(0);
-	document.getElementById("SearchMailInput").value="";
-    
+		updateMails();
+		getContacts(0);
+		document.getElementById("SearchMailInput").value="";
+    	
 	
 	}
 	console.log(mails)
@@ -16,23 +16,35 @@ function addMail(id)
 function updateMails()
 {
 	var mailArea =document.getElementById("selectedMails");
-    let mailsFields = "";         
+    let mailsFields = "";   
+    console.log(map)      
 	mails.forEach(
 		d=>{
+			currentMail = map.get(d);
+			console.log(currentMail)
+			if(currentMail!==null)
+			{
 			mailsFields+= 
-			          "<div class=\" col-4 col-lg-2\">"
-								+"<div class=\" alert alert-success  alert-dismissible fade show\""
+			          			"<div class=\"col-4 mx-1 col-lg-2 alert alert-success  alert-dismissible fade show\""
 								+"role=\"alert\">"
-								+"<strong style=\"font-size: x-small;\">Shaikh Shahzade</strong>"
-								+"<button type=\"button\" onClick=\"removeMail()\" class=\"btn-close\""
+								+"<strong style=\"font-size: x-small;\">"
+								+currentMail.name
+								
+								+"</strong>"
+								+"<button type=\"button\" "
+								+"onClick=\"removeMail(id)\" id=\""+d+"\" class=\"btn-close\""
 								+ "data-bs-dismiss=\"alert\" aria-label=\"Close\"></button>"
-								+"</div>"
-								+"</div>"
-				
+								+"</div>";
+		}		
 		}
 	)
 	
 	mailArea.innerHTML=mailsFields;
+	
+	var mailInputObject =document.getElementById("mailInputObject");
+		mailInputObject.value=mails;
+
+	
 }
 function getContacts(value) {
     if(value.length>1)
@@ -49,6 +61,7 @@ function getContacts(value) {
                 {
                 if(!mails.find(x=>x==d.cId))
                 {
+				map.set(d.cId+"" , d);
                 htmVal+=
                 "<div>"+
                 "<button onCLick=\"addMail(id)\" id=\""+d.cId+"\" style=\"width:100%;border-radius:0px;\" type=\"button\" class=\"btn  btn-light\">"
@@ -71,7 +84,10 @@ function getContacts(value) {
     }
   }
   
-  function removeMail()
+  function removeMail(id)
   {
-      console.log("calles")
+	  
+      mails=mails.filter((x)=>x!=id)
+      
+      console.log(mails)
   }
