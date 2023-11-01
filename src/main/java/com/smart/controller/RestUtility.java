@@ -1,9 +1,7 @@
 package com.smart.controller;
 
-import java.io.File;
 import java.security.Principal;
 import java.util.List;
-import java.util.Properties;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;

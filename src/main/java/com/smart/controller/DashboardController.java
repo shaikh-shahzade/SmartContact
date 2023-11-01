@@ -16,16 +16,12 @@ import org.springframework.web.multipart.MultipartFile;
 import com.smart.entities.Contact;
 import com.smart.entities.User;
 import com.smart.helper.Mail;
-import com.smart.repo.ContactRepo;
 import com.smart.repo.UserRepository;
 import com.smart.service.DashboardService;
 @Controller
 @RequestMapping("dashboard")
 public class DashboardController {
 	
-	@Autowired
-	private ContactRepo contactRepo;
-
 	@Autowired
 	private UserRepository userRepo;
 	
