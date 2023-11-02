@@ -1,6 +1,7 @@
 package com.smart.controller;
 
 import java.security.Principal;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -101,7 +102,10 @@ public class DashboardController {
 		return dashboardService.mail(model, principal);
 	}
 	@PostMapping("/mail/post")
-	public String mailPost(Model model , Principal principal,@RequestBody Mail mail, @RequestParam(name = "body") String mailBody) {
+	public String mailPost(Model model , Principal principal,
+			@RequestParam(name="mailIds") List<String> mailIds,
+			@RequestBody Mail mail, 
+			@RequestParam(name = "body") String mailBody) {
 		addUser(model,principal);
 		return dashboardService.mailPost(model, principal , mail , mailBody);
 	}

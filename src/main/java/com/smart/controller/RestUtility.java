@@ -20,16 +20,6 @@ import com.smart.repo.OtpRepo;
 import com.smart.repo.UserRepository;
 import com.smart.service.MailingService;
 
-import jakarta.mail.Authenticator;
-import jakarta.mail.MessagingException;
-import jakarta.mail.PasswordAuthentication;
-import jakarta.mail.Session;
-import jakarta.mail.Transport;
-import jakarta.mail.internet.InternetAddress;
-import jakarta.mail.internet.MimeBodyPart;
-import jakarta.mail.internet.MimeMessage;
-import jakarta.mail.internet.MimeMultipart;
-
 @RestController
 public class RestUtility {
 
@@ -165,6 +155,7 @@ public class RestUtility {
 		User user = userRepo.getUserByUserName(principal.getName());
 		return contactRepo.findTop5ByNameContainingAndUser(key, user);
 	}
+	
 
 	
 }
