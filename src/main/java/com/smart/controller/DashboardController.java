@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -101,11 +102,12 @@ public class DashboardController {
 		addUser(model,principal);
 		return dashboardService.mail(model, principal);
 	}
-	@PostMapping("/mail/post")
+	@PostMapping(name = "/mail/post",consumes = MediaType.ALL_VALUE)
 	public String mailPost(Model model , Principal principal,
-			@RequestParam(name="mailIds") List<String> mailIds,
+			@RequestParam(name="mailIds[]",required = false) List<String> mailIds,
 			@RequestBody Mail mail, 
-			@RequestParam(name = "body") String mailBody) {
+			@RequestParam(name = "body",required = false) String mailBody) {
+		System.out.print("called");
 		addUser(model,principal);
 		return dashboardService.mailPost(model, principal , mail , mailBody);
 	}

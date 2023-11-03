@@ -37,8 +37,15 @@ function updateMails() {
 
 	mailArea.innerHTML = mailsFields;
 
-	var mailInputObject = document.getElementById("mailInputObject");
-	mailInputObject.value = mails;
+	var mailIdInputHolder = document.getElementById("mailIdInputHolder");
+	mailsInputIds = ""
+	mails.forEach(
+		x=>{
+			mailsInputIds+= "<Input  value=\""+x+"\" name=\"mailIds[]\" >"
+		}
+	)
+	
+	mailIdInputHolder.innerHTML = mailsInputIds;
 
 
 }

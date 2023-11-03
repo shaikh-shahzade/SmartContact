@@ -11,14 +11,15 @@
 			<div>
 				<script type="text/javascript" th:src="@{/js/mail.js}"></script>
 				<div class="col mx-5 py-5">
-					<form th:action="@{/dashboard/sendmail}" th:method="POST"
-						th:object="${mail}" enctype="multipart/form-data">
+					<form th:action="@{/dashboard/mail/post}" id="mailForm" th:method="POST"
+						th:object="${mail}" >
 
 						<div class="mb-3">
 							<label for="exampleFormControlInput1" class="form-label">To:
 							</label> 
-							<Input id="mailInputObject" th:name="mailIds"
-								style="display: none;">
+							<div id="mailIdInputHolder" style="display: none;"
+							></div>
+							
 						</div>
 						<div class="container">
 							<div class="row" id="selectedMails"></div>
