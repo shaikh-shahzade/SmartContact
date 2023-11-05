@@ -40,32 +40,7 @@ public class UserController {
 		}
 	}
 
-	@RequestMapping("/dashboard/myprofile")
-	public String myProfile(Model model , Principal principal) {
-		addUser(model,principal);
-		model.addAttribute("myProfilePage", "activeNav");
-
-		return "user/myProfile";
-	}
-	@RequestMapping("/dashboard/profile/{id}")
-	public String profile(@PathVariable("id") Integer contactID , Model model , Principal principal) {
-		addUser(model,principal);
-		model.addAttribute("myProfilePage", "activeNav");
-		try {
-			Contact contact = contactRepo.getContactById(contactID);
-			model.addAttribute("contactProfile", contact);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		return "user/Profile";
-	}
-	@RequestMapping("/dashboard/update/myprofile")
-	public String updateProfile(Model model , Principal principal) {
-		addUser(model,principal);
-		model.addAttribute("updateMyprofile", "activeNav");
-
-		return "user/updateProfile";
-	}
+	
 
 	
 }
