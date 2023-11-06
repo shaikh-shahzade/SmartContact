@@ -108,11 +108,11 @@ public class DashboardController {
 		addUser(model,principal);
 		return dashboardService.mail(model, principal);
 	}
-	@PostMapping(name = "/mail/post",consumes = MediaType.ALL_VALUE)
+	@PostMapping( path="/mail/post", consumes  = MediaType.APPLICATION_FORM_URLENCODED_VALUE )
 	public String mailPost(Model model , Principal principal,
-			@RequestParam(name="mailIds[]",required = false) List<String> mailIds,
+			@RequestParam(name="mailIds[]",required = true) List<String> mailIds,
 			@RequestBody Mail mail, 
-			@RequestParam(name = "body",required = false) String mailBody) {
+			@RequestParam(name = "body",required = true) String mailBody) {
 		System.out.print("called");
 		addUser(model,principal);
 		return dashboardService.mailPost(model, principal , mail , mailBody);

@@ -41,7 +41,7 @@ function updateMails() {
 	mailsInputIds = ""
 	mails.forEach(
 		x=>{
-			mailsInputIds+= "<Input  value=\""+x+"\" name=\"mailIds[]\" >"
+			mailsInputIds+= "<Input  value=\""+x+"\" th:name=\"mailIds[]\" >"
 		}
 	)
 	
