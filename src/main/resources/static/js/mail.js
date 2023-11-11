@@ -41,9 +41,10 @@ function updateMails() {
 	mailsInputIds = ""
 	mails.forEach(
 		x=>{
-			mailsInputIds+= "<Input  value=\""+x+"\" th:name=\"mailIds[]\" >"
+			mailsInputIds+= "<Input  type=\"text\" value=\""+x+"\" name=\"mailIds[]\" >"
 		}
-	)
+	) 
+	
 	
 	mailIdInputHolder.innerHTML = mailsInputIds;
 
