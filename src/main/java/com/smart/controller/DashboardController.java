@@ -110,12 +110,12 @@ public class DashboardController {
 	}
 	@PostMapping( path="/mail/post" )
 	public String mailPost(Model model , Principal principal,
-			@RequestParam(name="mailIds[]",required = false) List<String> mailIds,
+			@RequestParam(name="mailIds[]") List<String> mailIds,
 			Mail mail, 
 			@RequestParam(name = "body",required = false) String mailBody) {
-		System.out.print("called"+mailIds);
+		
 		addUser(model,principal);
-		return dashboardService.mailPost(model, principal , mail , mailBody);
+		return dashboardService.mailPost(model, principal , mail , mailBody,mailIds);
 	}
 	@RequestMapping("/myprofile")
 	public String myProfile(Model model , Principal principal) {

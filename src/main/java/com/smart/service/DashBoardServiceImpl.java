@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.security.Principal;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -14,11 +15,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.smart.entities.Contact;
@@ -158,7 +154,7 @@ public class DashBoardServiceImpl implements DashboardService {
 	}
 
 	@Override
-	public String mailPost(Model model, Principal principal, Mail mail, String mailBody) {
+	public String mailPost(Model model, Principal principal, Mail mail, String mailBody,List<String> mailIds) {
 		// TODO Auto-generated method stub
 		boolean success = mailingService.sendTextMail(mail.getTo(), mail.getSubject(), mail.getMessage());
 				
