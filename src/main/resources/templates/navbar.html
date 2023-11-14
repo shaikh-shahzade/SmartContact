@@ -20,23 +20,23 @@
      
       <ul class=" navbar-nav me-auto mb-2 mb-lg-0 container-fluid d-flex  justify-content-end">
         <li class="nav-item">
-          <a class="nav-link active " aria-current="page" th:href="@{/home}">Home</a>
+          <a class="nav-link " th:classappend="${navbarActive}=='home'?'active':''" aria-current="page" th:href="@{/home}">Home</a>
         </li>
         
         <li class="nav-item">
-          <a class="nav-link " aria-current="page" th:href="@{/about}">About</a>
+          <a class="nav-link " th:classappend="${navbarActive}=='about'?'active':''" aria-current="page" th:href="@{/about}">About</a>
         </li>
         
         
         <li th:unless="${login}" class="nav-item">
-          <a class="nav-link " aria-current="page" th:href="@{/login}">LogIn</a>
+          <a class="nav-link " th:classappend="${navbarActive}=='login'?'active':''" aria-current="page" th:href="@{/login}">LogIn</a>
         </li>
         <li th:unless="${login}" class="nav-item ">
-          <a class="nav-link " aria-current="page"  th:href="@{/signup}">Signup</a>
+          <a class="nav-link " th:classappend="${navbarActive}=='signup'?'active':''" aria-current="page"  th:href="@{/signup}">Signup</a>
         </li>
        
        <li th:if="${login}" class="nav-item ">
-          <a class="nav-link " aria-current="page"  th:href="@{/dashboard/contacts}"> <span th:text="${username}"></span></a>
+          <a class="nav-link " th:classappend="${navbarActive}=='dashboard'?'active':''" aria-current="page"   th:href="@{/dashboard/contacts}"> <span th:text="${username}"></span></a>
         </li>
        <li th:if="${login}" class="nav-item">
           <a class="nav-link " aria-current="page" th:href="@{/logout}">Logout</a>

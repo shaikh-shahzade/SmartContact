@@ -46,17 +46,20 @@ public class HomeController {
 	@RequestMapping( value={"/home" , "/"})
 	public String home(Model model , Principal principal) {
 		setAttributes(model, principal);
+		model.addAttribute("navbarActive","home");
 		return "home";
 	}
 
 	@RequestMapping("/about")
 	public String about(Model model,Principal principal) {
 		setAttributes(model, principal);
+		model.addAttribute("navbarActive","about");
 		return "about";
 	}
 	@RequestMapping("/signup")
 	public String signup(Model model) {
 		model.addAttribute("user", new User());
+		model.addAttribute("navbarActive","signup");
 		return "signup";
 	}
 
@@ -104,6 +107,7 @@ public class HomeController {
 	public String login(Model model)
 	{
 		model.addAttribute("user", new User());
+		model.addAttribute("navbarActive","login");
 		return "login";
 	}
 	

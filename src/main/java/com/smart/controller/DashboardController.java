@@ -44,6 +44,7 @@ public class DashboardController {
 				User user = userRepo.getUserByUserName(principal.getName());
 				model.addAttribute("username",user.getName());
 				model.addAttribute("login",true);
+				model.addAttribute("navbarActive","dashboard");
 
 			} catch (Exception e) {
 				// TODO: handle exception
