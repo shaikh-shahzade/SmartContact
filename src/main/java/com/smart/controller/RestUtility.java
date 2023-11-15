@@ -28,72 +28,59 @@ public class RestUtility {
 
 	@Autowired
 	private UserRepository userRepo;
-	
+
 	@Autowired
 	private OtpRepo otpRepo;
-	
+
 	@Autowired
 	private MailingService mailingService;
 
 	@GetMapping("/contacts/search")
-	public List<Contact> search(@RequestParam("searchText") String searchText
-			, Principal principal)
-	{
+	public List<Contact> search(@RequestParam("searchText") String searchText, Principal principal) {
 		User user = userRepo.getUserByUserName(principal.getName());
-		return contactRepo.findTop5ByNameContainingAndUser(searchText , user);
+		return contactRepo.findTop5ByNameContainingAndUser(searchText, user);
 	}
 
 	@GetMapping("/delete/contact")
-	public String deleteContact(@RequestParam("id")Integer id , Principal principal)
-	{
+	public String deleteContact(@RequestParam("id") Integer id, Principal principal) {
 		try {
-		User user = userRepo.getUserByUserName(principal.getName());
-		Contact contact = contactRepo.getContactById(id);
-		if( contact.getUser().equals(user))
-		{
+			User user = userRepo.getUserByUserName(principal.getName());
+			Contact contact = contactRepo.getContactById(id);
+			if (contact.getUser().equals(user)) {
 
 				contactRepo.delete(contact);
 				return "success";
 
-		}
-		}
-		catch(Exception e)
-		{
+			}
+		} catch (Exception e) {
 
 		}
 		return "Error";
 	}
 
 	@GetMapping("/forgot/checkmail")
-	public String checkUserWithMail(@RequestHeader("mailID") String mailID)
-	{
+	public String checkUserWithMail(@RequestHeader("mailID") String mailID) {
 
 		System.out.println("Called");
-		if(userRepo.getUserByUserName(mailID)!=null)
-		{
-			try
-			{Integer otp = new Random().nextInt(11111, 99999);
+		if (userRepo.getUserByUserName(mailID) != null) {
+			try {
+				Integer otp = new Random().nextInt(11111, 99999);
 
-			UserOTP userOtp = otpRepo.findByUserId(mailID);
+				UserOTP userOtp = otpRepo.findByUserId(mailID);
 
-			if(userOtp!=null)
-			{
-				userOtp.setOtp(otp);
+				if (userOtp != null) {
+					userOtp.setOtp(otp);
 
-			}
-			else
-			{
-				userOtp = new UserOTP();
-				userOtp.setOtp(otp);
-				userOtp.setUserId(mailID);
-			}
-			otpRepo.save(userOtp);
-			String message = "Hello your OTP to reset your password is " +otp;
-			if(mailingService.sendTextMail(mailID, "Password Reset", message))
-				return "success";
-			}
-			catch(Exception e)
-			{
+				} else {
+					userOtp = new UserOTP();
+					userOtp.setOtp(otp);
+					userOtp.setUserId(mailID);
+				}
+				otpRepo.save(userOtp);
+				String message = "Hello your OTP to reset your password is " + otp;
+				if (mailingService.sendTextMail(mailID, "Password Reset", message))
+					return "success";
+			} catch (Exception e) {
 
 			}
 		}
@@ -101,14 +88,10 @@ public class RestUtility {
 	}
 
 	@GetMapping("/forgot/checkotp")
-	public String checkUserWithOTP(
-			@RequestHeader("mailID") String mailID,
-			@RequestHeader("otp") String otp)
-	{
-		if(userRepo.getUserByUserName(mailID)!=null)
-		{
+	public String checkUserWithOTP(@RequestHeader("mailID") String mailID, @RequestHeader("otp") String otp) {
+		if (userRepo.getUserByUserName(mailID) != null) {
 			UserOTP userOtp = otpRepo.findByUserId(mailID);
-			if(otp.equals(""+userOtp.getOtp())) {
+			if (otp.equals("" + userOtp.getOtp())) {
 
 				return "success";
 			}
@@ -118,44 +101,36 @@ public class RestUtility {
 	}
 
 	@PostMapping("/forgot/changepassword")
-	public String checkandUpdatePassword(
-			@RequestParam("mailID") String mailID,
-			@RequestParam("otp") String otp,
-			@RequestParam("password") String password)
-	{
+	public String checkandUpdatePassword(@RequestParam("mailID") String mailID, @RequestParam("otp") String otp,
+			@RequestParam("password") String password) {
 
-		if(checkUserWithOTP(mailID,otp).equals("success"))
-		{
+		if (checkUserWithOTP(mailID, otp).equals("success")) {
 			try {
 				User user = userRepo.getUserByUserName(mailID);
-				user.setPassword( new BCryptPasswordEncoder().encode(password));
+				user.setPassword(new BCryptPasswordEncoder().encode(password));
 				userRepo.save(user);
 				return "success";
 			} catch (Exception e) {
 				// TODO: handle exception
 			}
 
-
 		}
 		return "No user Found with this Email";
 	}
 
 	@GetMapping("/forgot/mail")
-	public String sendMail()
-	{
-		//These are for learning purpose only. Due to privacy not showing these.
-		//sendTextMail();
-		//sendAttachmentMail();
+	public String sendMail() {
+		// These are for learning purpose only. Due to privacy not showing these.
+		// sendTextMail();
+		// sendAttachmentMail();
 		return "done";
 	}
+
 	@GetMapping("/dashboard/mail/search/id")
-	public List<Contact> contact(@RequestParam("key") String key ,Principal principal)
-	{
-		
+	public List<Contact> contact(@RequestParam("key") String key, Principal principal) {
+
 		User user = userRepo.getUserByUserName(principal.getName());
 		return contactRepo.findTop5ByNameContainingAndUser(key, user);
 	}
-	
 
-	
 }
