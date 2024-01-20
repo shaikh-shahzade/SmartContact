@@ -18,3 +18,14 @@ server:
     whitelabel:
       enabled: false
     path: /error
+    
+mail:
+  properties:
+    username: demo_name
+    password: password
+    host: smtp.gmail.com
+    port: 465
+    ssl-enable: true
+    auth: true
+    starttls-enable: true
+    ssl-trust: true

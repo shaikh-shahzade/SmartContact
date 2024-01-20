@@ -17,11 +17,15 @@ import jakarta.mail.internet.MimeMultipart;
 
 @Service
 public class MailingServiceImpl implements MailingService{
-	@Override
-	public boolean sendTextMail( String sendMailTo , String subject , String msg  ) {
-		String host = "smtp.gmail.com";
+	
+	private Properties properties;
+	private String host;
+	
+	public MailingServiceImpl() {
 
-		Properties properties = System.getProperties();
+		this.host = "smtp.gmail.com";
+
+		this.properties = System.getProperties();
 		properties.put("mail.smtp.host", host);
         properties.put("mail.smtp.port", "465");
         properties.put("mail.smtp.ssl.enable", "true");
@@ -29,7 +33,12 @@ public class MailingServiceImpl implements MailingService{
         properties.put("mail.smtp.starttls.enable", "true");
 
         properties.put("mail.smtp.ssl.trust", host);
-		Session session = Session.getInstance(properties, new Authenticator() {
+	}
+
+	@Override
+	public boolean sendTextMail( String sendMailTo , String subject , String msg  ) {
+		
+		Session session = Session.getInstance(this.properties, new Authenticator() {
 		@Override
 		protected PasswordAuthentication getPasswordAuthentication() {
 			// TODO Auto-generated method stub
@@ -53,7 +62,7 @@ public class MailingServiceImpl implements MailingService{
 			e.printStackTrace();
 
 		}
-
+		
 		return false;
 	}
 
