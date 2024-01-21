@@ -3,6 +3,7 @@ package com.smart.service;
 import java.io.File;
 import java.util.Properties;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import jakarta.mail.Authenticator;
@@ -19,20 +20,34 @@ import jakarta.mail.internet.MimeMultipart;
 public class MailingServiceImpl implements MailingService{
 	
 	private Properties properties;
+	@Value("${mail.properties.host}")
 	private String host;
+	@Value("${mail.properties.username}")
+	private String username;
+	@Value("${mail.properties.password}")
+	private String password;
+	@Value("${mail.properties.port}")
+    private String port;
+	@Value("${mail.properties.ssl-enable}")
+    private Boolean sslEnable;
+	@Value("${mail.properties.auth}")
+    private Boolean auth;
+	@Value("${mail.properties.starttls-enable}")
+    private Boolean starttlsEnable;
+	@Value("${mail.properties.ssl-trust}")
+    private Boolean sslTrust;
 	
 	public MailingServiceImpl() {
 
 		this.host = "smtp.gmail.com";
 
 		this.properties = System.getProperties();
-		properties.put("mail.smtp.host", host);
-        properties.put("mail.smtp.port", "465");
-        properties.put("mail.smtp.ssl.enable", "true");
-        properties.put("mail.smtp.auth", "true");
-        properties.put("mail.smtp.starttls.enable", "true");
-
-        properties.put("mail.smtp.ssl.trust", host);
+		this.properties.put("mail.smtp.host", this.host);
+		this.properties.put("mail.smtp.port", this.port);
+		this.properties.put("mail.smtp.ssl.enable", this.sslEnable);
+		this.properties.put("mail.smtp.auth", this.auth);
+		this.properties.put("mail.smtp.starttls.enable", this.starttlsEnable);
+		this.properties.put("mail.smtp.ssl.trust", this.sslTrust);
 	}
 
 	@Override
@@ -41,8 +56,7 @@ public class MailingServiceImpl implements MailingService{
 		Session session = Session.getInstance(this.properties, new Authenticator() {
 		@Override
 		protected PasswordAuthentication getPasswordAuthentication() {
-			// TODO Auto-generated method stub
-			return new  PasswordAuthentication("myMail@gmail.com","password");
+			return new  PasswordAuthentication(username,password);
 		}
 		});
 		session.setDebug(true);
@@ -52,13 +66,10 @@ public class MailingServiceImpl implements MailingService{
 			message.addRecipient(jakarta.mail.Message.RecipientType.TO, new InternetAddress(sendMailTo));
 			message.setSubject(subject);
 			message.setText(msg);
-
-
 			Transport.send(message);
 			return true;
 
 		} catch (MessagingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 
 		}
@@ -68,28 +79,19 @@ public class MailingServiceImpl implements MailingService{
 
 	@Override
 	public void sendAttachmentMail() {
-		String host = "smtp.gmail.com";
-
-		Properties properties = System.getProperties();
-		properties.put("mail.smtp.host", host);
-        properties.put("mail.smtp.port", "465");
-        properties.put("mail.smtp.ssl.enable", "true");
-        properties.put("mail.smtp.auth", "true");
-        properties.put("mail.smtp.starttls.enable", "true");
-
-        properties.put("mail.smtp.ssl.trust", host);
-		Session session = Session.getInstance(properties, new Authenticator() {
+		
+		Session session = Session.getInstance(this.properties, new Authenticator() {
 		@Override
 		protected PasswordAuthentication getPasswordAuthentication() {
 			// TODO Auto-generated method stub
-			return new  PasswordAuthentication("shahzade10@gmail.com","cwuwffbrqggwgzdv");
+			return new  PasswordAuthentication(username,password);
 		}
 		});
 		session.setDebug(true);
 		MimeMessage message = new MimeMessage(session);
 		try {
-			message.setFrom(new InternetAddress("shahzade10@gmail.com"));
-			message.addRecipient(jakarta.mail.Message.RecipientType.TO, new InternetAddress("shahzade10@gmail.com"));
+			message.setFrom(new InternetAddress("myMail@gmail.com"));
+			message.addRecipient(jakarta.mail.Message.RecipientType.TO, new InternetAddress("myMail@gmail.com"));
 			message.setSubject("TEST");
 
 			MimeMultipart mimeMultipart = new MimeMultipart();
