@@ -51,7 +51,6 @@ public class MailPropertiesConfig implements InitializingBean{
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		// TODO Auto-generated method stub
-		System.out.print("Value:"+ host);
 		this.properties = System.getProperties();
 		this.properties.put("mail.smtp.host", this.host);
 		this.properties.put("mail.smtp.port", this.port);
@@ -61,8 +60,4 @@ public class MailPropertiesConfig implements InitializingBean{
 		this.properties.put("mail.smtp.ssl.trust", this.sslTrust);
 	}
 
-	
-	
-
-	
 }
