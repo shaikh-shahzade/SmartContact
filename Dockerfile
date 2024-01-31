@@ -28,5 +28,6 @@ COPY --from=build target/*.jar SmartContractT-0.0.1-SNAPSHOT.jar
 # Expose port 1221
 EXPOSE 8080
 
+
 # Set the entrypoint command for running the application
 ENTRYPOINT ["java", "-jar", "SmartContractT-0.0.1-SNAPSHOT.jar"]
