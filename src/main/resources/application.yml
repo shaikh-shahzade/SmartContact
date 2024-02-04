@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    password: 12345
+    password: ${spring.datasource.password}
     url: ${spring.datasource.url}
-    username: root
+    username: ${spring.datasource.username}
   jpa:
     database-platform: org.hibernate.dialect.MySQL5Dialect
     hibernate:
@@ -21,12 +21,12 @@ server:
     
 mail-config:
   config:
-    username: demo_name
-    password: password
-    host: smtp.gmail.com
+    username: ${mail.config.username} demo_name
+    password: ${mail.config.password} password
+    host: ${mail.config.host} smtp.gmail.com
+    sender-mail: ${mail.config.sender}
     port: 465
     ssl-enable: true
     auth: true
     starttls-enable: true
     ssl-trust: true
-    sender-mail: my-mail@gmail.com
