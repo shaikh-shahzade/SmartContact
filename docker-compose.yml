@@ -32,10 +32,11 @@ services:
       - server.port=8080
       - spring.datasource.username=${DATABASE_USERNAME}
       - spring.datasource.password=${DATABASE_PASSWORD}
-      - mail.config.username=${}
-      - mail.config.password=${}
-      - mail.config.host=${}
-      - mail.config.sender=${}
+      - mail.config.username=${MAIL_CONFIG_USERNAME}
+      - mail.config.password=${MAIL_CONFIG_PASSWORD}
+      - mail.config.host=${MAIL_CONFIG_HOST}
+      - mail.config.sender=${MAIL_CONFIG_SENDER}
+      - mail.config.port = ${MAIL_CONFIG_PORT}
       - spring.datasource.url=jdbc:mysql://host.docker.internal:3307/smartcontact
     depends_on:
       - database

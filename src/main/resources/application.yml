@@ -21,11 +21,11 @@ server:
     
 mail-config:
   config:
-    username: ${mail.config.username} demo_name
-    password: ${mail.config.password} password
-    host: ${mail.config.host} smtp.gmail.com
+    username: ${mail.config.username}
+    password: ${mail.config.password}
+    host: ${mail.config.host} 
     sender-mail: ${mail.config.sender}
-    port: 465
+    port: ${mail.config.port}
     ssl-enable: true
     auth: true
     starttls-enable: true
