@@ -147,17 +147,19 @@ public class DashBoardServiceImpl implements DashboardService {
 
 	@Override
 	public String mail(Model model, Principal principal) {
-		// TODO Auto-generated method stub
 		model.addAttribute("mailPage", "activeNav");
 		model.addAttribute("mail",new Mail());
 		return "user/mail";
 	}
 
 	@Override
-	public String mailPost(Model model, Principal principal, Mail mail, String mailBody,List<String> mailIds) {
-		// TODO Auto-generated method stub
-		boolean success = mailingService.sendTextMail(mail.getTo(), mail.getSubject(), mail.getMessage());
-				
+	public String mailPost(Model model, Principal principal, Mail mail, String mailBody,List<Integer> mailIds) {
+		
+		
+		 List<String> mailId = mailIds.stream().map(id ->contactRepo.getContactById(id).getEmail()).toList();
+		 
+		
+		boolean success = mailingService.sendTextMail(mail.getTo(), mail.getSubject(), mail.getMessage(),  mailId);
 		return "user/mail";
 	}
 

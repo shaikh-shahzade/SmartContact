@@ -1,6 +1,7 @@
 package com.smart.controller;
 
 import java.security.Principal;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -78,7 +79,7 @@ public class RestUtility {
 				}
 				otpRepo.save(userOtp);
 				String message = "Hello your OTP to reset your password is " + otp;
-				if (mailingService.sendTextMail(mailID, "Password Reset", message))
+				if (mailingService.sendTextMail(mailID, "Password Reset", message,Arrays.asList(mailID)))
 					return "success";
 			} catch (Exception e) {
 

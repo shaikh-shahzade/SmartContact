@@ -26,5 +26,5 @@ public interface DashboardService {
 
 	public String mail(Model model, Principal principal);
 
-	public String mailPost(Model model, Principal principal, Mail mail, String mailBody, List<String> mailIds);
+	public String mailPost(Model model, Principal principal, Mail mail, String mailBody, List<Integer> mailIds);
 }

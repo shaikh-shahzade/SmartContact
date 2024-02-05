@@ -1,6 +1,7 @@
 package com.smart.service;
 
 import java.io.File;
+import java.util.List;
 import java.util.Properties;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +26,9 @@ public class MailingServiceImpl implements MailingService{
 	private MailPropertiesConfig mailPropertiesConfig;
 
 	@Override
-	public boolean sendTextMail( String sendMailTo , String subject , String msg  ) {
+	public boolean sendTextMail( String sendMailTo , String subject , String msg , List<String> mailIds ) {
 		
+		System.out.print(mailIds.toString() + " sendMail "+ subject+" subj   msg " + msg);
 		Session session = Session.getInstance(mailPropertiesConfig.getProperties(), new Authenticator() {
 		@Override
 		protected PasswordAuthentication getPasswordAuthentication() {
@@ -38,6 +40,7 @@ public class MailingServiceImpl implements MailingService{
 		try {
 			message.setFrom(new InternetAddress(this.mailPropertiesConfig.getSenderMail()));
 			message.addRecipient(jakarta.mail.Message.RecipientType.TO, new InternetAddress(sendMailTo));
+			
 			message.setSubject(subject);
 			message.setText(msg);
 			Transport.send(message);

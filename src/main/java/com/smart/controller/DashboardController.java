@@ -111,7 +111,7 @@ public class DashboardController {
 	}
 	@PostMapping( path="/mail/post" )
 	public String mailPost(Model model , Principal principal,
-			@RequestParam(name="mailIds[]") List<String> mailIds,
+			@RequestParam(name="mailIds[]") List<Integer> mailIds,
 			Mail mail, 
 			@RequestParam(name = "body",required = false) String mailBody) {
 		
