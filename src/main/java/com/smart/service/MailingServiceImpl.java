@@ -2,19 +2,25 @@ package com.smart.service;
 
 import java.io.File;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Properties;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import com.smart.entities.Contact;
 import com.smart.user.config.MailPropertiesConfig;
 
+import jakarta.mail.Address;
 import jakarta.mail.Authenticator;
 import jakarta.mail.MessagingException;
 import jakarta.mail.PasswordAuthentication;
 import jakarta.mail.Session;
 import jakarta.mail.Transport;
+import jakarta.mail.internet.AddressException;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeBodyPart;
 import jakarta.mail.internet.MimeMessage;
@@ -39,10 +45,19 @@ public class MailingServiceImpl implements MailingService{
 		MimeMessage message = new MimeMessage(session);
 		try {
 			message.setFrom(new InternetAddress(this.mailPropertiesConfig.getSenderMail()));
-			message.addRecipient(jakarta.mail.Message.RecipientType.TO, new InternetAddress(sendMailTo));
+			
+			List<InternetAddress> ia = new ArrayList<InternetAddress>();
+			for(String mails: mailIds)
+				ia.add(new InternetAddress(mails));
+			
+			message.addRecipients(jakarta.mail.Message.RecipientType.TO, 
+					 
+					ia.toArray(new InternetAddress[ia.size()])
+					
+			);
 			
 			message.setSubject(subject);
-			message.setText(msg);
+			message.setText("message");
 			Transport.send(message);
 			return true;
 

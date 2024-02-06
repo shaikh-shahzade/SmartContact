@@ -29,6 +29,13 @@ public class Mail {
 	public void setMessage(String message) {
 		this.body = message;
 	}
+	
+	public String getBody() {
+		return body;
+	}
+	public void setBody(String body) {
+		this.body = body;
+	}
 	public Mail(String to, String cc, String subject, String body) {
 		super();
 		this.to = to;
@@ -39,6 +46,10 @@ public class Mail {
 	public Mail() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+	@Override
+	public String toString() {
+		return "Mail [to=" + to + ", cc=" + cc + ", subject=" + subject + ", body=" + body + "]";
 	}
 	
 	

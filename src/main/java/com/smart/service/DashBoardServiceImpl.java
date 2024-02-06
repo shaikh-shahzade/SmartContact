@@ -158,8 +158,8 @@ public class DashBoardServiceImpl implements DashboardService {
 		
 		 List<String> mailId = mailIds.stream().map(id ->contactRepo.getContactById(id).getEmail()).toList();
 		 
-		
-		boolean success = mailingService.sendTextMail(mail.getTo(), mail.getSubject(), mail.getMessage(),  mailId);
+		System.out.println(mail.toString());
+		//boolean success = mailingService.sendTextMail(mail.getTo(), mail.getSubject(), mailBody,  mailId);
 		return "user/mail";
 	}
 
