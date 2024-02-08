@@ -129,7 +129,7 @@ th:replace="~{user/dashboard:: dashboard(~{::div})}"
               <tr th:each="contacts: ${Contacts}" th:id="'US'+${contacts.cId}">
                 <th scope="row" ><span th:text="'US'+${contacts.cId}" ></span></th>
                 <td>
-                <a th:href="'/user/dashboard/profile/'+${contacts.cId}">
+                <a th:href="'/dashboard/profile/'+${contacts.cId}">
                 <img class="contact-pic" th:src="'/img/'+${contacts.image}" /> 
                 <span th:text="${contacts.name}"></span>
                 </a>
