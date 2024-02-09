@@ -1,5 +1,6 @@
 package com.smart.controller;
 
+import java.io.File;
 import java.security.Principal;
 import java.util.List;
 
@@ -112,11 +113,11 @@ public class DashboardController {
 	@PostMapping( path="/mail/post" )
 	public String mailPost(Model model , Principal principal,
 			@RequestParam(name="mailIds[]") List<Integer> mailIds,
-			Mail mail, 
+			Mail mail,
+			@RequestBody MultipartFile attachment,
 			@RequestParam(name = "body",required = false) String mailBody) {
-		
 		addUser(model,principal);
-		return dashboardService.mailPost(model, principal , mail , mailBody,mailIds);
+		return dashboardService.mailPost(model, principal , mail , mailBody,mailIds , attachment);
 	}
 	@RequestMapping("/myprofile")
 	public String myProfile(Model model , Principal principal) {

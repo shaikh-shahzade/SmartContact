@@ -1,10 +1,13 @@
 package com.smart.helper;
 
+import java.io.File;
+
 public class Mail {
 	private String to;
 	private String cc;
 	private String subject;
 	private String body;
+	private File file;
 	public String getTo() {
 		return to;
 	}

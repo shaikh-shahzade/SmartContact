@@ -153,13 +153,13 @@ public class DashBoardServiceImpl implements DashboardService {
 	}
 
 	@Override
-	public String mailPost(Model model, Principal principal, Mail mail, String mailBody,List<Integer> mailIds) {
+	public String mailPost(Model model, Principal principal, Mail mail, String mailBody,List<Integer> mailIds , MultipartFile attachment) {
 		
 		
 		 List<String> mailId = mailIds.stream().map(id ->contactRepo.getContactById(id).getEmail()).toList();
 		 
 		System.out.println(mail.toString());
-		//boolean success = mailingService.sendTextMail(mail.getTo(), mail.getSubject(), mailBody,  mailId);
+		boolean success = mailingService.sendTextMail(mail.getTo(), mail.getSubject(), mailBody,  mailId , attachment);
 		return "user/mail";
 	}
 
