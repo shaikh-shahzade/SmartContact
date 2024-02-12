@@ -12,7 +12,7 @@
 				<script type="text/javascript" th:src="@{/js/mail.js}"></script>
 				<div class="col mx-5 py-5">
 					<form th:action="@{/dashboard/mail/post}" id="mailForm" th:method="POST"
-						th:object="${mail}" >
+						th:object="${mail}" enctype="multipart/form-data" >
 
 						<div class="mb-3">
 							<label for="exampleFormControlInput1" class="form-label">To:
@@ -46,7 +46,11 @@
 							<input type="text" th:name="@{subject}" class="form-control"
 								id="exampleFormControlInput1" />
 						</div>
-
+						<div class="mb-3">
+							<label for="exampleFormControlTextarea1" class="form-label">Attachment</label>
+							<input type="file"    class="form-control"  name="attachment"
+								 id="exampleFormControlTextarea1"/>
+						</div>
 						<div class="mb-3">
 							<label for="exampleFormControlTextarea1" class="form-label">Body</label>
 							<textarea class="form-control"  th:field="*{body}"
