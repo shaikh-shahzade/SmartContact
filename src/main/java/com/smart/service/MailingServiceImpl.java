@@ -1,6 +1,7 @@
 package com.smart.service;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.smart.entities.Contact;
 import com.smart.user.config.MailPropertiesConfig;
 
+import jakarta.activation.DataHandler;
 import jakarta.mail.Address;
 import jakarta.mail.Authenticator;
 import jakarta.mail.MessagingException;
@@ -60,9 +62,10 @@ public class MailingServiceImpl implements MailingService{
 			);
 			
 			message.setSubject(subject);
-			message.setText("message");
+			//message.setText("message");
 			if(attachment!=null)
-			message.setContent(addAttachment(attachment));
+			message.setContent
+			(addAttachment(attachment));
 			
 			Transport.send(message);
 			return true;
@@ -83,15 +86,22 @@ public class MailingServiceImpl implements MailingService{
 		
 		
 			Multipart mimeMultipart = new MimeMultipart();
-
-			String path = attachment.getName();
-
+			
+			String path = System.getProperty("user.dir")+"\\" + attachment.getOriginalFilename();
+			System.out.print("FIle nameee:"+ attachment.getOriginalFilename());
+			File temp = new File(path);
+			
 			MimeBodyPart fileMime = new MimeBodyPart();
+			 
+			
+			attachment.transferTo(temp);
+			fileMime.attachFile(temp);
 
-			File file = new File(path);
-			attachment.transferTo(file);
-			fileMime.attachFile(file);
-
+			//File file = new File(path);
+			
+			//attachment.transferTo(file);
+			//fileMime.attachFile(file);
+				
 			mimeMultipart.addBodyPart(fileMime);
 
 			return mimeMultipart;

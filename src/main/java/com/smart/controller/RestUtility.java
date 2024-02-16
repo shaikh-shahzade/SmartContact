@@ -79,7 +79,7 @@ public class RestUtility {
 				}
 				otpRepo.save(userOtp);
 				String message = "Hello your OTP to reset your password is " + otp;
-				if (mailingService.sendTextMail(mailID, "Password Reset", message,Arrays.asList(mailID)))
+				if (mailingService.sendTextMail(mailID, "Password Reset", message,Arrays.asList(mailID),null))
 					return "success";
 			} catch (Exception e) {
 
