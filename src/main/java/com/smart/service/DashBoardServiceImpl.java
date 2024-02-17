@@ -78,7 +78,7 @@ public class DashBoardServiceImpl implements DashboardService {
 			File saveFile = new ClassPathResource("/static/img").getFile();
 			Path path = Paths.get(saveFile.getAbsolutePath() + File.separator +mfile.getOriginalFilename());
 			Files.copy(mfile.getInputStream(),  path ,StandardCopyOption.REPLACE_EXISTING);
-			contact.setImage(contact.getcId()+mfile.getOriginalFilename());
+			contact.setImage(mfile.getOriginalFilename());
 			}
 			contact.setDescription(description);
 

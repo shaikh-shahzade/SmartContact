@@ -7,7 +7,7 @@ public class Mail {
 	private String cc;
 	private String subject;
 	private String body;
-	private MultipartFile file;
+	private MultipartFile attachment;
 	public String getTo() {
 		return to;
 	}
@@ -32,19 +32,19 @@ public class Mail {
 	public void setBody(String body) {
 		this.body = body;
 	}
-	public MultipartFile getFile() {
-		return file;
+	public MultipartFile getAttachment() {
+		return attachment;
 	}
-	public void setFile(MultipartFile file) {
-		this.file = file;
+	public void setAttachment(MultipartFile attachment) {
+		this.attachment = attachment;
 	}
-	public Mail(String to, String cc, String subject, String body, MultipartFile file) {
+	public Mail(String to, String cc, String subject, String body, MultipartFile attachment) {
 		super();
 		this.to = to;
 		this.cc = cc;
 		this.subject = subject;
 		this.body = body;
-		this.file = file;
+		this.attachment = attachment;
 	}
 	public Mail() {
 		super();

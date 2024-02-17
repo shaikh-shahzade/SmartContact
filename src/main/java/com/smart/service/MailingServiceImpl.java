@@ -86,22 +86,14 @@ public class MailingServiceImpl implements MailingService{
 		
 		
 			Multipart mimeMultipart = new MimeMultipart();
-			
-			String path = System.getProperty("user.dir")+"\\" + attachment.getOriginalFilename();
-			System.out.print("FIle nameee:"+ attachment.getOriginalFilename());
-			File temp = new File(path);
-			
 			MimeBodyPart fileMime = new MimeBodyPart();
-			 
 			
+			//To save in directory
+			String path = System.getProperty("user.dir")+"\\" + attachment.getOriginalFilename();
+			File temp = new File(path);
 			attachment.transferTo(temp);
 			fileMime.attachFile(temp);
 
-			//File file = new File(path);
-			
-			//attachment.transferTo(file);
-			//fileMime.attachFile(file);
-				
 			mimeMultipart.addBodyPart(fileMime);
 
 			return mimeMultipart;

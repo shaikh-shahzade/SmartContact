@@ -43,6 +43,7 @@ public class DashboardController {
 		{
 			try {
 				User user = userRepo.getUserByUserName(principal.getName());
+				model.addAttribute("user",user);
 				model.addAttribute("username",user.getName());
 				model.addAttribute("login",true);
 				model.addAttribute("navbarActive","dashboard");
@@ -122,6 +123,7 @@ public class DashboardController {
 	@RequestMapping("/myprofile")
 	public String myProfile(Model model , Principal principal) {
 		addUser(model,principal);
+		
 		model.addAttribute("myProfilePage", "activeNav");
 
 		return "user/myProfile";
