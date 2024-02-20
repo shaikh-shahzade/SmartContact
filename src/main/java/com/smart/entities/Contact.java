@@ -84,7 +84,4 @@ public class Contact {
 	public void setWork(String work) {
 		this.work = work;
 	}
-
-
-
 }

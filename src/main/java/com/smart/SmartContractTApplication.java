@@ -12,5 +12,4 @@ public class SmartContractTApplication {
 		SpringApplication.run(SmartContractTApplication.class, args);
 	}
 
-
 }

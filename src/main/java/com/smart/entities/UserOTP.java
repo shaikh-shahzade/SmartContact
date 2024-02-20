@@ -34,8 +34,4 @@ public class UserOTP {
 		this.otp = otp;
 	}
 
-
-
-
-
 }

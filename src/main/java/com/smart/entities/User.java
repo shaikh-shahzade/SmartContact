@@ -30,8 +30,6 @@ public class User {
 	private String image;
 	private String role;
 
-
-
 	@Column(name= "email" , unique = true , nullable = false)
 	private String email;
 	@Column(length = 500)
@@ -95,13 +93,5 @@ public class User {
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", password=" + password + ", image=" + image + ", role=" + role
-				+ ", email=" + email + ", about=" + about + ", enabled=" + enabled + ", contacts=" + contacts + "]";
-	}
-
-
-
 
 }
