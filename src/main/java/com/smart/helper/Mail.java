@@ -50,6 +50,4 @@ public class Mail {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	
 }

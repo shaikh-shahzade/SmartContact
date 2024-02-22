@@ -21,5 +21,4 @@ public class Message {
 		this.text = text;
 		this.type = type;
 	}
-
 }
