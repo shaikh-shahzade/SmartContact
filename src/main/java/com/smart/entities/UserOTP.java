@@ -9,7 +9,6 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name="UserOTP")
 public class UserOTP {
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
@@ -33,5 +32,4 @@ public class UserOTP {
 	public void setOtp(Integer otp) {
 		this.otp = otp;
 	}
-
 }

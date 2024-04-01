@@ -1,9 +1,43 @@
+# spring:
+#   datasource:
+#     driver-class-name: com.mysql.cj.jdbc.Driver
+#     password: ${spring.datasource.password}
+#     url: ${spring.datasource.url}
+#     username: ${spring.datasource.username}
+#   jpa:
+#     database-platform: org.hibernate.dialect.MySQL5Dialect
+#     hibernate:
+#       ddl-auto: update
+#   servlet:
+#     multipart:
+#       max-file-size: 999999KB
+      
+      
+# server:
+#   error:
+#     whitelabel:
+#       enabled: false
+#     path: /error
+    
+# mail-config:
+#   config:
+#     username: ${mail.config.username}
+#     password: ${mail.config.password}
+#     host: ${mail.config.host} 
+#     sender-mail: ${mail.config.sender}
+#     port: ${mail.config.port}
+#     ssl-enable: true
+#     auth: true
+#     starttls-enable: true
+#     ssl-trust: true
+
+
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    password: ${spring.datasource.password}
-    url: ${spring.datasource.url}
-    username: ${spring.datasource.username}
+    password: 12345
+    url: jdbc:mysql://localhost:3306/smartcontact
+    username: root
   jpa:
     database-platform: org.hibernate.dialect.MySQL5Dialect
     hibernate:
@@ -21,12 +55,14 @@ server:
     
 mail-config:
   config:
-    username: ${mail.config.username}
-    password: ${mail.config.password}
-    host: ${mail.config.host} 
-    sender-mail: ${mail.config.sender}
-    port: ${mail.config.port}
+    username: #########
+    password: ############
+    host: smtp.gmail.com 
+    sender-mail: ##########
+    port: 465
     ssl-enable: true
     auth: true
     starttls-enable: true
     ssl-trust: true
+
+    
